@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BigFish-V2",
-    "slug": "BigFish-V2",
+    "name": "MyApp",
+    "slug": "MyApp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [

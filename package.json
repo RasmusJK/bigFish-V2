@@ -8,15 +8,35 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "0.1.5",
     "expo": "~36.0.0",
+    "expo-font": "~8.0.0",
+    "native-base": "^2.13.8",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
-    "react-native-web": "~0.11.7"
+    "react-native-gesture-handler": "~1.5.0",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-safe-area-context": "0.6.0",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-web": "~0.11.7",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^2.0.15",
+    "react-navigation-tabs": "^2.7.0",
+    "validate.js": "^0.13.1",
+    "expo-image-picker": "~8.0.1",
+    "expo-permissions": "~8.0.0",
+    "expo-constants": "~8.0.0",
+    "expo-av": "~8.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "babel-eslint": "^10.0.3",
     "babel-preset-expo": "~8.0.0",
-    "@babel/core": "^7.0.0"
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-native": "^3.8.1"
   },
   "private": true
 }
