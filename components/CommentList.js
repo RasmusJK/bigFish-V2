@@ -14,12 +14,12 @@ const CommentList = (props) => {
     const [comment, setComment] = useContext(CommentContext);
     const [loading, setLoading] = useState(true);
 
-    const getComments = async () => {
+    const getComments = async (post) => {
         try {
             const token = await AsyncStorage.getItem('userToken');
-            const json = await fetchGET('comments', file.file_id, token);
+            const json = await fetchGET('comments', 'file/503', token);
             console.log('getComments: ', json);
-            //setComment(json);
+            setComment(json);
         } catch (e) {
             console.log('getComments error', e);
         }
