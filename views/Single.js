@@ -17,6 +17,9 @@ import {mediaURL} from '../constants/urlConst';
 import {Video} from 'expo-av';
 import {fetchGET} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
+import {setComments} from '../hooks/UploadHooks';
+import List from "../components/List";
+import CommentList from "../components/CommentList";
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -24,6 +27,7 @@ const Single = (props) => {
   const [user, setUser] = useState({});
   const {navigation} = props;
   const file = navigation.state.params.file;
+
 
   const getUser = async () => {
     try {
@@ -38,7 +42,6 @@ const Single = (props) => {
   useEffect(() => {
     getUser();
   }, []);
-
 
   return (
     <Container>
@@ -72,6 +75,7 @@ const Single = (props) => {
               )
             }
           </CardItem>
+
           <CardItem>
             <Left>
               <Icon name='image'/>
@@ -82,6 +86,9 @@ const Single = (props) => {
               </Body>
             </Left>
           </CardItem>
+
+          <CommentList navigation={navigation}/>
+
         </Card>
       </Content>
     </Container>

@@ -6,7 +6,7 @@ const Home = (props) => {
   // console.log('Home', props);
   const {navigation} = props;
   return (
-    <List navigation={navigation} mode={'all'}></List>
+    <List navigation={navigation} mode={'all'}/>
   );
 };
 

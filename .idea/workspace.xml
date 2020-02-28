@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df903685-16de-4e78-870c-632b1b0bc227" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/views/Comments.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/SingleComment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/CommentItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/CommentList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/contexts/CommentContext.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hooks/CommentHooks.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Comments.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Comments.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Single.js" beforeDir="false" afterPath="$PROJECT_DIR$/views/Single.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1582629945061</updated>
       <workItem from="1582629946420" duration="562000" />
-      <workItem from="1582877738123" duration="2432000" />
+      <workItem from="1582877738123" duration="9576000" />
     </task>
     <servers />
   </component>

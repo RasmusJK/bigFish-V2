@@ -24,6 +24,7 @@ const Comment = (props) => {
     const [user, setUser] = useState({});
     const {navigation} = props;
     const file = navigation.state.params.file;
+    const comments = [];
 
     const getUser = async () => {
         try {
@@ -45,14 +46,7 @@ const Comment = (props) => {
             <Content>
                 <Card>
                     <CardItem>
-                        <Left>
-                            <Icon name='image'/>
-                            <Body>
-                                <H3>{file.title}</H3>
-                                <Text>{file.description}</Text>
-                                <Text>By {user.username}</Text>
-                            </Body>
-                        </Left>
+                        <Text></Text>
                     </CardItem>
                 </Card>
             </Content>
@@ -62,7 +56,6 @@ const Comment = (props) => {
 
 Comment.propTypes = {
     navigation: PropTypes.object,
-    file: PropTypes.object,
 };
 
 export default Comment;
