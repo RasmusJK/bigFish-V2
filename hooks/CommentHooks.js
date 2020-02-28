@@ -5,3 +5,7 @@ import {fetchFormData, fetchPUT, getAllMedia, getUserMedia} from './APIHooks';
 const getComments = () =>{
 
 };
+
+const setComments = () => {
+    
+};

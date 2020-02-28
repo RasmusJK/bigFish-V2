@@ -4,10 +4,10 @@ import {
     List as BaseList, Spinner, View,
 } from 'native-base';
 import ListItem from './ListItem';
-import {fetchGET, getAllMedia, getUserMedia} from '../hooks/APIHooks';
+import {fetchGET} from '../hooks/APIHooks';
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
-import {setComments} from "../hooks/UploadHooks";
+import {setComments} from "../hooks/CommentHooks";
 import {CommentContext} from "../contexts/CommentContext";
 import CommentItem from "./CommentItem";
 

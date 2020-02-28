@@ -27,8 +27,7 @@ const CommentItem = (props) => {
 };
 
 CommentItem.propTypes = {
-    singleMedia: PropTypes.object,
-    navigation: PropTypes.object,
+    singleComment: PropTypes.object,
 };
 
 export default CommentItem;
