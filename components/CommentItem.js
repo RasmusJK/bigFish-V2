@@ -12,8 +12,8 @@ const CommentItem = (props) => {
     return (
         <BaseListItem thumbnail>
             <Body>
-                <Text numberOfLines={1}>{props.singleMedia.description}</Text>
-                <Text numberOfLines={3}>{props.singleMedia.description}</Text>
+                <Text numberOfLines={1}>{props.Object.user_id}</Text>
+                <Text numberOfLines={3}>{props.Object.comment}</Text>
             </Body>
             <Right>
                 <Button full onPress={

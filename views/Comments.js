@@ -11,10 +11,7 @@ import {
     Text,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import AsyncImage from '../components/AsyncImage';
 import {Dimensions} from 'react-native';
-import {mediaURL} from '../constants/urlConst';
-import {Video} from 'expo-av';
 import {fetchGET} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
 
