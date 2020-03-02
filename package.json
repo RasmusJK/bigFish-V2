@@ -27,8 +27,7 @@
     "expo-image-picker": "~8.0.1",
     "expo-permissions": "~8.0.0",
     "expo-constants": "~8.0.0",
-    "expo-av": "~8.0.0",
-    "prop-types": "latest"
+    "expo-av": "~8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
