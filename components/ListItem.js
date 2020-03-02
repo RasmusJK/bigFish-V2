@@ -19,11 +19,8 @@ import {AsyncStorage} from 'react-native';
 const ListItem = (props) => {
   return (
     <BaseListItem thumbnail>
-      <Left>
-        <Thumbnail
-          square
-          source={{uri: mediaURL + props.singleMedia.thumbnails.w160}}
-        />
+    <Left>
+        <Thumbnail square source={{uri: mediaURL + props.singleMedia.thumbnails.w160}} />
       </Left>
       <Body>
         <H3 numberOfLines={1}>{props.singleMedia.title}</H3>
