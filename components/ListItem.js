@@ -17,6 +17,7 @@ import {AsyncStorage} from 'react-native';
 
 
 const ListItem = (props) => {
+  try{
   return (
     <BaseListItem thumbnail>
       <Left>
@@ -69,7 +70,11 @@ const ListItem = (props) => {
         }
       </Right>
     </BaseListItem>
-  );
+  );} catch (e) {
+    console.log('ListItem get error', e);
+    return (
+        <BaseListItem/>
+    );}
 };
 
 ListItem.propTypes = {

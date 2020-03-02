@@ -1,4 +1,4 @@
-import {apiUrl} from '../constants/urlConst';
+import {apiUrl, mediaURL} from '../constants/urlConst';
 
 
 const fetchGET = async (endpoint = '', params = '', token = '') => {
@@ -102,6 +102,22 @@ const getAllMedia = async () => {
   return result;
 };
 
+const getAllMediaForum = async () => {
+  const json = await fetchGET('tags/fishforum');
+  const result = await Promise.all(json.files.map(async (item) => {
+    return await fetchGET('tags', item.file_id);
+  }));
+  return result;
+};
+
+const getAllMediaMarket = async () => {
+  const json = await fetchGET('tags/fishmarket');
+  const result = await Promise.all(json.files.map(async (item) => {
+    return await fetchGET('tags', item.file_id);
+  }));
+  return result;
+};
+
 const getUserMedia = async (token) => {
   console.log('im here', token);
   const json = await fetchGET('media/user', '', token);
@@ -113,6 +129,8 @@ const getUserMedia = async (token) => {
 
 // eslint-disable-next-line max-len
 export {
+  getAllMediaForum,
+  getAllMediaMarket,
   getAllMedia,
   fetchGET,
   fetchPOST,
