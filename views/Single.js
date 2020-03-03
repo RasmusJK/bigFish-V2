@@ -16,7 +16,7 @@ import AsyncImage from '../components/AsyncImage';
 import {Dimensions} from 'react-native';
 import {mediaURL} from '../constants/urlConst';
 import {Video} from 'expo-av';
-import {fetchGET, fetchPOST, fetchDELETE} from '../hooks/APIHooks';
+import {fetchGET, fetchPOST, fetchDELETElike} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
 import {setComments} from '../hooks/UploadHooks';
 import List from "../components/List";
@@ -64,7 +64,7 @@ const Single = (props) => {
         id: file.file_id,
       };
 
-      const response = await fetchDELETE('favourites/file/' + file.file_id, data, token);
+      const response = await fetchDELETElike('favourites/file/' + file.file_id, data, token);
       console.log('dislike', response);
       await getLikes();
     } catch(error){

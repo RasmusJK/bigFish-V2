@@ -57,7 +57,22 @@ const fetchPUT = async (endpoint = '', params = '', data = {}, token = '') => {
   return json;
 };
 
-const fetchDELETE = async (endpoint = '', data = {}, token = '') => {
+const fetchDELETE = async (endpoint = '', params = '', token = '') => {
+  const fetchOptions = {
+    method: 'DELETE',
+    headers: {
+      'x-access-token': token,
+    },
+  };
+  const response = await fetch(apiUrl + endpoint + '/' + params,
+    fetchOptions);
+  if (!response.ok) {
+    throw new Error('fetchDELETE error: ' + response.status);
+  }
+  return await response.json();
+};
+
+const fetchDELETElike = async (endpoint = '', data = {}, token = '') => {
   try {
     const fetchOptions = {
       method: 'DELETE',
@@ -75,6 +90,7 @@ const fetchDELETE = async (endpoint = '', data = {}, token = '') => {
     console.log(error.message);
   }
 };
+
 
 const fetchFormData = async (
   endpoint = '', data = new FormData(), token = '') => {
@@ -138,6 +154,7 @@ export {
   fetchGET,
   fetchPOST,
   fetchDELETE,
+  fetchDELETElike,
   fetchPUT,
   fetchFormData,
   getUserMedia,
