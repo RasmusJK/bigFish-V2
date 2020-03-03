@@ -1,5 +1,6 @@
 node_modules/**/*
 .expo/*
+.idea/workspace.xml
 npm-debug.*
 *.jks
 *.p8
@@ -13,4 +14,4 @@ web-report/
 # macOS
 .DS_Store
 
-.idea/
+.idea/workspace
