@@ -96,10 +96,21 @@ const fetchFormData = async (
 
 const getAllMedia = async () => {
   const json = await fetchGET('media', 'all');
+  console.log('get all media: ', json.files.map);
   const result = await Promise.all(json.files.map(async (item) => {
     return await fetchGET('media', item.file_id);
   }));
   return result;
+};
+
+const getTaggedMedia = async (tag) => {
+  const json = await fetchGET('tags', tag);
+  console.log('get tagged media: ', json.map);
+  const result = await Promise.all(json.map(async(item)=>{
+    return await fetchGET('media', item.file_id);
+  }));
+  return result;
+  //const result = await Promise.all(json)
 };
 
 const getUserMedia = async (token) => {
@@ -113,6 +124,7 @@ const getUserMedia = async (token) => {
 
 // eslint-disable-next-line max-len
 export {
+  getTaggedMedia,
   getAllMedia,
   fetchGET,
   fetchPOST,

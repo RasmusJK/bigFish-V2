@@ -5,7 +5,7 @@ import {
 } from 'native-base';
 import ListItem from './ListItem';
 import {MediaContext} from '../contexts/MediaContext';
-import {getAllMedia, getUserMedia} from '../hooks/APIHooks';
+import {getAllMedia, getUserMedia, getTaggedMedia} from '../hooks/APIHooks';
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
 
@@ -18,8 +18,13 @@ const List = (props) => {
       const allData = await getAllMedia();
       const token = await AsyncStorage.getItem('userToken');
       const myData = await getUserMedia(token);
+      const tagData = await getTaggedMedia('fishforum');
+
+      tagData;
+
       setMedia({
         allFiles: allData.reverse(),
+        tagFiles: tagData,
         myFiles: myData,
       });
       setLoading(false);
@@ -40,7 +45,7 @@ const List = (props) => {
         <>
           {props.mode === 'all' &&
           <BaseList
-            dataArray={media.allFiles}
+            dataArray={media.tagFiles}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => <ListItem
               navigation={props.navigation}
