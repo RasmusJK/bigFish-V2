@@ -18,7 +18,7 @@ import {mediaURL} from '../constants/urlConst';
 import {Video} from 'expo-av';
 import {fetchGET} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -97,8 +97,9 @@ const Single = (props) => {
                 longitude: -122.4324,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
-              }}
-            />
+              }}>
+              <Marker></Marker>
+            </MapView>
           </View>
         </CardItem>
       </Content>
