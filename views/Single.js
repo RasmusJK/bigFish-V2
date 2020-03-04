@@ -9,6 +9,7 @@ import {
   H3,
   Icon,
   Text,
+  View,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import AsyncImage from '../components/AsyncImage';
@@ -17,6 +18,7 @@ import {mediaURL} from '../constants/urlConst';
 import {Video} from 'expo-av';
 import {fetchGET} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
+import MapView from 'react-native-maps';
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -46,14 +48,14 @@ const Single = (props) => {
         <Card>
           <CardItem>
             {file.media_type === 'image' ? (
-                <AsyncImage
-                  style={{
-                    width: '100%',
-                    height: deviceHeight / 2,
-                  }}
-                  spinnerColor='#777'
-                  source={{uri: mediaURL + file.filename}}
-                />) :
+              <AsyncImage
+                style={{
+                  width: '100%',
+                  height: deviceHeight / 2,
+                }}
+                spinnerColor='#777'
+                source={{uri: mediaURL + file.filename}}
+              />) :
               (<Video
                 source={{uri: mediaURL + file.filename}}
                 resizeMode={'cover'}
@@ -74,7 +76,7 @@ const Single = (props) => {
           </CardItem>
           <CardItem>
             <Left>
-              <Icon name='image'/>
+              <Icon name='image' />
               <Body>
                 <H3>{file.title}</H3>
                 <Text>{file.description}</Text>
@@ -83,6 +85,22 @@ const Single = (props) => {
             </Left>
           </CardItem>
         </Card>
+        <CardItem>
+          <View>
+            <Text>Kartta</Text>
+            <MapView
+              style={{width: Dimensions.get('window').width,
+              height: Dimensions.get('window').height,
+            }}
+              initialRegion={{
+                latitude: 37.78825,
+                longitude: -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            />
+          </View>
+        </CardItem>
       </Content>
     </Container>
   );
