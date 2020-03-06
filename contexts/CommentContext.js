@@ -12,7 +12,7 @@ const CommentProvider = (props) => {
     const [comment, setComment] = useState(commentObject);
     return (
         <CommentContext.Provider value={[comment, setComment]}>
-            {props.children}
+            props.children
         </CommentContext.Provider>
     );
 };

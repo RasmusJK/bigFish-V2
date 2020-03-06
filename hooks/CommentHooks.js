@@ -9,3 +9,8 @@ const getComments = () =>{
 const setComments = () => {
     
 };
+
+export{
+    setComments,
+    getComments
+}
