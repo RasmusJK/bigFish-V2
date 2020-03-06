@@ -72,6 +72,25 @@ const fetchDELETE = async (endpoint = '', params = '', token = '') => {
   return await response.json();
 };
 
+const fetchDELETElike = async (endpoint = '', data = {}, token = '') => {
+  try {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await fetch(apiUrl + endpoint, fetchOptions);
+    const json = response.json();
+    return json;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 
 const fetchFormData = async (
   endpoint = '', data = new FormData(), token = '') => {
@@ -135,6 +154,7 @@ export {
   fetchGET,
   fetchPOST,
   fetchDELETE,
+  fetchDELETElike,
   fetchPUT,
   fetchFormData,
   getUserMedia,
