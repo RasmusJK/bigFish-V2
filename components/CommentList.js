@@ -5,7 +5,7 @@ import {
 } from 'native-base';
 import {fetchGET} from '../hooks/APIHooks';
 import {MediaContext} from '../contexts/MediaContext';
-import {CommentContext} from "../contexts/CommentContext";
+import {CommentContext, CommentProvider} from "../contexts/CommentContext";
 import CommentItem from "./CommentItem";
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
@@ -17,22 +17,41 @@ const CommentList = (props) => {
     const [comment, setComment] = useContext(CommentContext);
     const [loading, setLoading] = useState(true);
 
+
+
+    //console.log('commentcontext comment: ', comment);
+
     const getComments = async (fileId) => {
         try {
             const token = await AsyncStorage.getItem('userToken');
-            console.log('mode', fileId);
-            const json = await fetchGET('comments/file', fileId, token);
+            //console.log('mode', fileId);
+            const id = fileId.file;
+            const json = await fetchGET('comments/file', id, token);
 
-    /**  json format:
+            /*  json format:
         getComments:  Array []
         commentList props:  Object {
             "file": 601,
         }   */
+            /*console.log('jsonComment: ', comment);
+            console.log('json: ', json);
+            console.log('comment.comment: ', comment.comment);*/
 
-            console.log('getComments: ', json);
+            let comments = [];
+
+            //json.forEach(comment => console.log('Comments foreach ', comment.comment));
+            const addComment = (data) => {
+                console.log('addComment: ', data);
+                comments.push(data.comment)
+            };
+
+            json.forEach(comment => addComment(comment));
+
             setComment({
-                json
+                allComments: comments.reverse()
             });
+
+            console.log('allcomments: ', comments.reverse());
             setLoading(false);
         } catch (e) {
             console.log('getComments error', e);
@@ -44,14 +63,16 @@ const CommentList = (props) => {
     }, []);
 
     return (
-        <BaseList
-            dataArray={comment}
-            renderItem={
-                ({comment}) => <CommentItem
-                    singleComment={comment}
-                    />
-            }
-        />
+        <View>
+            <BaseList
+                dataArray={comments}
+                renderItem={
+                    ({comment}) =>
+                        <CommentItem
+                            navigation={props.navigation}
+                            singleComment={comment}/>}
+            />
+        </View>
     );
 };
 
