@@ -156,7 +156,7 @@ const Single = (props) => {
             </Left>
           </CardItem>
 
-          <CommentList navigation={navigation}/>
+          <CommentList file={file.file_id}/>
 
         </Card>
       </Content>
