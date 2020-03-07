@@ -7,20 +7,25 @@ import {
     Text,
 } from 'native-base';
 import PropTypes from 'prop-types';
+import {AsyncStorage} from 'react-native';
 
 const CommentItem = (props) => {
-
-    console.log('commentItem current file_id: ', props.file_id);
-
+    try{
+    console.log('commentItem props: ', props);
     return (
         <BaseListItem>
-            <Body><Text numberOfLines={1}>{props.singleComment.comment}</Text></Body>
+            <Body>
+                <Text numberOfLines={1}>{props.comment}</Text>
+            </Body>
         </BaseListItem>
-    );
+    );}catch(e){
+        console.log('CommentItem error: ', e);
+    }
 };
 
 CommentItem.propTypes = {
-    singleComment: PropTypes.object,
+    singleComment: PropTypes.string,
+    getComments: PropTypes.array,
 };
 
 export default CommentItem;

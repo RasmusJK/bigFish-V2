@@ -1,22 +1,19 @@
 /* eslint-disable max-len */
 import React, {useContext, useEffect, useState} from 'react';
 import {
-    List as BaseList, Spinner, View,
+    List as BaseList, Spinner, View, Content, Separator, Text
 } from 'native-base';
 import {fetchGET} from '../hooks/APIHooks';
-import {MediaContext} from '../contexts/MediaContext';
-import {CommentContext, CommentProvider} from "../contexts/CommentContext";
+import {CommentContext} from "../contexts/CommentContext";
 import CommentItem from "./CommentItem";
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
-import List from './List';
 
 const CommentList = (props) => {
-    console.log('commentList props: ', props);
+    //console.log('commentList props: ', props);
 
     const [comment, setComment] = useContext(CommentContext);
     const [loading, setLoading] = useState(true);
-
 
 
     //console.log('commentcontext comment: ', comment);
@@ -36,23 +33,25 @@ const CommentList = (props) => {
             /*console.log('jsonComment: ', comment);
             console.log('json: ', json);
             console.log('comment.comment: ', comment.comment);*/
-
-            let comments = [];
-
-            //json.forEach(comment => console.log('Comments foreach ', comment.comment));
+            /*json.forEach(comment => console.log('Comments foreach ', comment.comment));
             const addComment = (data) => {
-                console.log('addComment: ', data);
+                //console.log('addComment: ', data);
                 comments.push(data.comment)
             };
+            */
 
-            json.forEach(comment => addComment(comment));
+            //json.forEach(comment => addComment(comment));
+
+            //console.log('Comments list: ', comments);
+            console.log('Comments list json: ', json);
 
             setComment({
-                allComments: comments.reverse()
+                allComments: json
             });
 
-            console.log('allcomments: ', comments.reverse());
+            //console.log('allcomments: ', comments.reverse());
             setLoading(false);
+
         } catch (e) {
             console.log('getComments error', e);
         }
@@ -63,21 +62,28 @@ const CommentList = (props) => {
     }, []);
 
     return (
-        <View>
-            <BaseList
-                dataArray={comments}
-                renderItem={
-                    ({comment}) =>
-                        <CommentItem
-                            navigation={props.navigation}
-                            singleComment={comment}/>}
-            />
-        </View>
+        <Content>
+            <Separator bordered>
+                <Text>Comments</Text>
+            </Separator>
+            {loading ? (
+                <Spinner/>
+            ) : (
+                <BaseList
+                    dataArray={comment.allComments}
+                    renderItem={
+                        ({comment}) =>
+                            <CommentItem
+                                singleComment={comment}
+                                getMedia={getComments}/>}
+                />
+            )}
+        </Content>
     );
 };
 
 CommentList.propTypes = {
-    navigation: PropTypes.object,
+
 };
 
 export default CommentList;

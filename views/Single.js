@@ -155,10 +155,10 @@ const Single = (props) => {
               </Body>
             </Left>
           </CardItem>
-
-          <CommentList file={file.file_id}/>
-
         </Card>
+
+        <CommentList file={file.file_id}></CommentList>
+
       </Content>
     </Container>
   );
