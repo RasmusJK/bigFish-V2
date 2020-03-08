@@ -11,7 +11,7 @@ import {AsyncStorage} from 'react-native';
 
 const CommentList = (props) => {
 
-    const [comment, setComment] = useContext(CommentContext);
+    const [comment, setComment] = useState({});
     const [loading, setLoading] = useState(true);
 
     const getComments = async (props) => {
@@ -33,9 +33,7 @@ const CommentList = (props) => {
 
             console.log('getComment returning value: ', json);
 
-            setComment({
-                allComments: json,
-            });
+            setComment(json);
             setLoading(false);
 
         }catch(e){
@@ -44,7 +42,7 @@ const CommentList = (props) => {
     };
 
     useEffect(() => {
-        getComments(props.allComments);
+        getComments(props);
     }, []);
 
     return (
@@ -56,7 +54,7 @@ const CommentList = (props) => {
                 <Spinner/>
             ) : (
                 <BaseList
-                    dataArray={comment.allComments}
+                    dataArray={comment}
                     renderItem={({item}) => <CommentItem
                                 singleComment={item}/>}
                 />
