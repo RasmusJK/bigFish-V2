@@ -9,13 +9,13 @@ import {
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
 
-const CommentItem = (props) => {
+const Comment = (props) => {
     try{
     console.log('commentItem props: ', props);
     return (
         <BaseListItem>
             <Body>
-                <Text numberOfLines={1}>{props.comment}</Text>
+                <Text numberOfLines={1}>{props.singleComment.comment}</Text>
             </Body>
         </BaseListItem>
     );}catch(e){
@@ -23,9 +23,9 @@ const CommentItem = (props) => {
     }
 };
 
-CommentItem.propTypes = {
-    singleComment: PropTypes.string,
-    getComments: PropTypes.array,
+Comment.propTypes = {
+    singleComment: PropTypes.object,
+    getComments: PropTypes.func,
 };
 
-export default CommentItem;
+export default Comment;

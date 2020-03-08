@@ -2,8 +2,13 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
-const CommentContext = React.createContext([{}, () => {
-}]);
+/*
+ Need to figure out why CommentList isn't passing the data to this context.
+ */
+
+const CommentContext = React.createContext([{}, p => {}]);
+
+const commentArray = [];
 
 const commentObject = {
     allComments: [],
@@ -11,7 +16,7 @@ const commentObject = {
 
 const CommentProvider = (props) => {
     console.log('commentProvider props: ', props);
-    const [comment, setComment] = useState(commentObject);
+    const [comment, setComment] = useState({});
     return (
         <CommentContext.Provider value={[comment, setComment]}>
             {props.children}
