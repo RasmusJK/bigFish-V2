@@ -15,7 +15,8 @@ const Comment = (props) => {
     return (
         <BaseListItem>
             <Body>
-                <Text numberOfLines={1}>{props.singleComment.comment}</Text>
+                <Text numberOfLines={1}>{props.singleComment.user_id}</Text>
+                <Text numberOfLines={3}>{props.singleComment.comment}</Text>
             </Body>
         </BaseListItem>
     );}catch(e){

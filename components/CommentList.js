@@ -4,7 +4,6 @@ import {
     List as BaseList, Spinner, View, Content, Separator, Text
 } from 'native-base';
 import {fetchGET} from '../hooks/APIHooks';
-import {CommentContext} from "../contexts/CommentContext";
 import CommentItem from "./CommentItem";
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
