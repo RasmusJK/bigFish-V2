@@ -4,7 +4,6 @@ import {
     List as BaseList, Spinner, View, Content, Separator, Text
 } from 'native-base';
 import {fetchGET} from '../hooks/APIHooks';
-import {getComments} from '../hooks/CommentHooks';
 import {CommentContext} from "../contexts/CommentContext";
 import CommentItem from "./CommentItem";
 import PropTypes from 'prop-types';
@@ -15,12 +14,37 @@ const CommentList = (props) => {
     const [comment, setComment] = useContext(CommentContext);
     const [loading, setLoading] = useState(true);
 
+    const getComments = async (props) => {
+        try {
+            console.log('getComment props: ', props);
+
+            const token = await AsyncStorage.getItem('userToken');
+            const id = props.file;
+            const json = await fetchGET('comments/file', id, token);
+
+            /*  json format:
+        getComments:  Array []
+        commentList props:  Object {
+            "file": 601,
+        }   */
+            /*console.log('jsonComment: ', comment);
+            console.log('json: ', json);
+            console.log('comment.comment: ', comment.comment);*/
+
+            console.log('getComment returning value: ', json);
+
+            setComment({
+                allComments: json,
+            });
+            setLoading(false);
+
+        }catch(e){
+            console.log('getComments error: ', e);
+        }
+    };
+
     useEffect(() => {
-        const json = getComments(props);
-        setLoading(false);
-        setComment({
-            allComments: json
-        });
+        getComments(props.allComments);
     }, []);
 
     return (
@@ -33,10 +57,8 @@ const CommentList = (props) => {
             ) : (
                 <BaseList
                     dataArray={comment.allComments}
-                    renderItem={
-                        ({comment}) =>
-                            <CommentItem
-                                singleComment={comment}/>}
+                    renderItem={({item}) => <CommentItem
+                                singleComment={item}/>}
                 />
             )}
         </Content>

@@ -12,6 +12,9 @@ import {AsyncStorage} from 'react-native';
 const List = (props) => {
   const [media, setMedia] = useContext(MediaContext);
   const [loading, setLoading] = useState(true);
+
+  console.log('mediaList props: ', props);
+
   const getMedia = async (mode) => {
     try {
       console.log('mode', mode);

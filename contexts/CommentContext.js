@@ -16,7 +16,7 @@ const commentObject = {
 
 const CommentProvider = (props) => {
     console.log('commentProvider props: ', props);
-    const [comment, setComment] = useState({});
+    const [comment, setComment] = useState(commentObject);
     return (
         <CommentContext.Provider value={[comment, setComment]}>
             {props.children}
