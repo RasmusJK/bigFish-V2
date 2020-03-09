@@ -34,7 +34,6 @@ const CommentList = (props) => {
 
             setComment(json);
             setLoading(false);
-
         }catch(e){
             console.log('getComments error: ', e);
         }
