@@ -10,6 +10,8 @@ import {
   Icon,
   Text,
   View,
+  Right,
+  Button,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import AsyncImage from '../components/AsyncImage';
@@ -23,6 +25,7 @@ import MapView, {Marker} from 'react-native-maps';
 const deviceHeight = Dimensions.get('window').height;
 
 const Single = (props) => {
+  const [toggleCardItem, setToggleCardItem] = useState(true);
   const [user, setUser] = useState({});
   const {navigation} = props;
   const file = navigation.state.params.file;
@@ -45,34 +48,73 @@ const Single = (props) => {
   return (
     <Container>
       <Content>
+        {toggleCardItem &&
+          <Card>
+            <CardItem>
+              {file.media_type === 'image' ? (
+                <AsyncImage
+                  style={{
+                    width: '100%',
+                    height: deviceHeight / 2,
+                  }}
+                  spinnerColor='#777'
+                  source={{uri: mediaURL + file.filename}}
+                />) :
+                (<Video
+                  source={{uri: mediaURL + file.filename}}
+                  resizeMode={'cover'}
+                  useNativeControls
+                  style={{
+                    width: '100%',
+                    height: deviceHeight / 2,
+                  }}
+                  onError={(e) => {
+                    console.log('video error', e);
+                  }}
+                  onLoad={(evt) => {
+                    console.log('onload', evt);
+                  }}
+                />
+                )
+              }
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Icon name='image' />
+                <Body>
+                  <H3>{file.title}</H3>
+                  <Text>{file.description}</Text>
+                  <Text>By {user.username}</Text>
+                </Body>
+              </Left>
+              <Right>
+                <Button full onPress={() => {
+                  setToggleCardItem(false);
+                }}>
+                  <Text>Map</Text>
+                </Button>
+              </Right>
+            </CardItem>
+          </Card>
+        }
+        {!toggleCardItem &&
         <Card>
           <CardItem>
-            {file.media_type === 'image' ? (
-              <AsyncImage
+            <View>
+              <MapView
                 style={{
-                  width: '100%',
-                  height: deviceHeight / 2,
+                  width: Dimensions.get('window').width,
+                  height: Dimensions.get('window').height /2,
                 }}
-                spinnerColor='#777'
-                source={{uri: mediaURL + file.filename}}
-              />) :
-              (<Video
-                source={{uri: mediaURL + file.filename}}
-                resizeMode={'cover'}
-                useNativeControls
-                style={{
-                  width: '100%',
-                  height: deviceHeight / 2,
-                }}
-                onError={(e) => {
-                  console.log('video error', e);
-                }}
-                onLoad={(evt) => {
-                  console.log('onload', evt);
-                }}
-              />
-              )
-            }
+                initialRegion={{
+                  latitude: 37.78825,
+                  longitude: -122.4324,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }}>
+                <Marker></Marker>
+              </MapView>
+            </View>
           </CardItem>
           <CardItem>
             <Left>
@@ -83,27 +125,18 @@ const Single = (props) => {
                 <Text>By {user.username}</Text>
               </Body>
             </Left>
-          </CardItem>
-        </Card>
-        <CardItem>
-          <View>
-            <Text>Kartta</Text>
-            <MapView
-              style={{width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height,
-            }}
-              initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+            <Right>
+              <Button full onPress={() => {
+                setToggleCardItem(true);
               }}>
-              <Marker></Marker>
-            </MapView>
-          </View>
-        </CardItem>
+                <Text>Picture</Text>
+              </Button>
+            </Right>
+          </CardItem>
+          </Card>
+          }
       </Content>
-    </Container>
+    </Container >
   );
 };
 
