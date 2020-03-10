@@ -75,7 +75,7 @@ const Single = (props) => {
       const response = await fetchDELETElike('favourites/file/' + file.file_id, data, token);
       console.log('dislike', response);
       await getLikes();
-    } catch(error){
+    } catch (error) {
       console.log(error.message);
     }
   };
@@ -85,11 +85,11 @@ const Single = (props) => {
       const token = await AsyncStorage.getItem('userToken');
       const response = await fetchGET('favourites/file', file.file_id, token);
       const currentUser = await fetchGET('users/user', '', token);
-      if (response.length === 0){
+      if (response.length === 0) {
         setLiked(false);
       }
-      for (let i = 0; i < response.length; i++){
-        if(currentUser.user_id === response[i].user_id) {
+      for (let i = 0; i < response.length; i++) {
+        if (currentUser.user_id === response[i].user_id) {
           console.log('Getlike true');
           setLiked(true);
         } else {
@@ -98,7 +98,7 @@ const Single = (props) => {
         }
       }
       setLikeCount(response.length);
-    }catch(error){
+    } catch (error) {
       console.log(error.message);
     }
   };
@@ -162,55 +162,60 @@ const Single = (props) => {
           </Card>
         }
         {!toggleCardItem &&
-        <Card>
-          <CardItem>
-            <View>
-              <MapView
-                style={{
-                  width: Dimensions.get('window').width,
-                  height: Dimensions.get('window').height /2,
-                }}
-                initialRegion={{
-                  latitude: longitude,
-                  longitude: latitude,
-                  latitudeDelta: 0.09,
-                  longitudeDelta: 0.04,
+          <Card>
+            <CardItem>
+              <View>
+                <MapView
+                  style={{
+                    width: Dimensions.get('window').width,
+                    height: Dimensions.get('window').height / 2,
+                  }}
+                  initialRegion={{
+                    latitude: longitude,
+                    longitude: latitude,
+                    latitudeDelta: 0.09,
+                    longitudeDelta: 0.04,
+                  }}>
+                  <Marker
+                    coordinate={{
+                      latitude: longitude,
+                      longitude: latitude,
+                    }}
+                  />
+                </MapView>
+              </View>
+            </CardItem>
+            <CardItem>
+              {!liked ? <Button success onPress={like}>
+                <Text>Like</Text>
+              </Button> :
+                <Button danger onPress={dislike}>
+                  <Text>Dislike</Text>
+                </Button>}
+              <Left>
+                {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
+              </Left>
+            </CardItem>
+
+            <CardItem>
+              <Left>
+                <Icon name='image' />
+                <Body>
+                  <H3>{file.title}</H3>
+                  <Text>{description}</Text>
+                  <Text>By {user.username}</Text>
+                </Body>
+              </Left>
+              <Right>
+                <Button full onPress={() => {
+                  setToggleCardItem(true);
                 }}>
-
-              </MapView>
-            </View>
-          </CardItem>
-          <CardItem>
-            {!liked ? <Button success onPress={like}>
-              <Text>Like</Text>
-            </Button> : 
-            <Button danger onPress={dislike}>
-              <Text>Dislike</Text>
-            </Button>}
-            <Left>
-              {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
-            </Left>
-          </CardItem>
-
-          <CardItem>
-            <Left>
-              <Icon name='image' />
-              <Body>
-                <H3>{file.title}</H3>
-                <Text>{description}</Text>
-                <Text>By {user.username}</Text>
-              </Body>
-            </Left>
-            <Right>
-              <Button full onPress={() => {
-                setToggleCardItem(true);
-              }}>
-                <Text>Picture</Text>
-              </Button>
-            </Right>
-          </CardItem>
+                  <Text>Picture</Text>
+                </Button>
+              </Right>
+            </CardItem>
           </Card>
-          }
+        }
 
         <CommentList file={file.file_id}></CommentList>
       </Content>

@@ -17,6 +17,8 @@ import {AsyncStorage} from 'react-native';
 
 
 const ListItem = (props) => {
+  const allData = JSON.parse(props.singleMedia.description);
+  const description = allData.description;
   try{
     return (
         <BaseListItem thumbnail>
@@ -28,7 +30,7 @@ const ListItem = (props) => {
           </Left>
           <Body>
           <H3 numberOfLines={1}>{props.singleMedia.title}</H3>
-          <Text numberOfLines={1}>{props.singleMedia.description}</Text>
+          <Text numberOfLines={1}>{description}</Text>
           </Body>
           <Right>
             <Button full onPress={
