@@ -35,6 +35,10 @@ const Single = (props) => {
   const file = navigation.state.params.file;
   const [liked, setLiked] = useState();
   const [likeCount, setLikeCount] = useState();
+  const allData = JSON.parse(file.description);
+  const description = allData.description;
+  const latitude = allData.latitude;
+  const longitude = allData.longitude;
 
 
   const getUser = async () => {
@@ -143,7 +147,7 @@ const Single = (props) => {
                 <Icon name='image' />
                 <Body>
                   <H3>{file.title}</H3>
-                  <Text>{file.description}</Text>
+                  <Text>{description}</Text>
                   <Text>By {user.username}</Text>
                 </Body>
               </Left>
@@ -167,8 +171,8 @@ const Single = (props) => {
                   height: Dimensions.get('window').height /2,
                 }}
                 initialRegion={{
-                  latitude: 37.78825,
-                  longitude: -122.4324,
+                  latitude: longitude,
+                  longitude: latitude,
                   latitudeDelta: 0.09,
                   longitudeDelta: 0.04,
                 }}>
@@ -193,7 +197,7 @@ const Single = (props) => {
               <Icon name='image' />
               <Body>
                 <H3>{file.title}</H3>
-                <Text>{file.description}</Text>
+                <Text>{description}</Text>
                 <Text>By {user.username}</Text>
               </Body>
             </Left>
