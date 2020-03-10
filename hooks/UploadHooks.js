@@ -29,7 +29,7 @@ const useUploadForm = () => {
       }));
   };
 
-  const handleUpload = async (file, navigation, setMedia, longitude, latitude) => {
+  const handleUpload = async (file, navigation, setMedia) => {
     const filename = file.uri.split('/').pop();
     const match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
@@ -39,14 +39,14 @@ const useUploadForm = () => {
     }
     const moreData = {
       description: inputs.description,
-      longitude: longitude,
-      latitude: latitude
-    }
-    console.log('moredata', moreData);
+      latitude: file.exif.GPSLatitude,
+      longitude: file.exif.GPSLongitude
+      }
+    console.log('lokaatiola', {latitude: file.exif.GPSLatitude});
 
     const fd = new FormData();
     fd.append('title', inputs.title);
-    fd.append('description', inputs.description);
+    fd.append('description', JSON.stringify(moreData)); //inputs.description
     fd.append('file', {uri: file.uri, name: filename, type});
 
     console.log('FD:', fd);
