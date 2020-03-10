@@ -7,6 +7,7 @@ import {
     Button,
     Text,
     Spinner,
+    Content,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
@@ -31,22 +32,22 @@ const Comment = (props) => {
             }
         };
 
-        useEffect(()=>{
+        useEffect(() => {
             getUser(props.singleComment.user_id);
         });
 
         /**
          * Function made for formatting date/time, not working yet.
          *
-        const date = (time_added) => {
+         const date = (time_added) => {
             const options = {day:'numeric',month:'numeric',year:'2-digit',hour:'numeric',minute:'numeric'};
             console.log('date func: ',time_added.toLocaleDateString("en-US", options));
             //return time_added.toLocaleDateString("en-US", options);
         };
 
-        //console.log(props.singleComment.time_added);
-        //date(props.singleComment.time_added);
-        */
+         //console.log(props.singleComment.time_added);
+         //date(props.singleComment.time_added);
+         */
 
         return (
             <BaseListItem>
@@ -54,8 +55,10 @@ const Comment = (props) => {
                     <Spinner/>
                 ) : (
                     <Body>
-                        <Text>{props.singleComment.time_added}</Text>
-                        <Text numberOfLines={1}>{user.username}</Text>
+                        <Content style={{flexDirection: 'row'}}>
+                            <Text style={{flex: 2}}>{props.singleComment.time_added}</Text>
+                            <Text style={{flex: 1}}>{user.username}</Text>
+                        </Content>
                         <Text numberOfLines={3}>{props.singleComment.comment}</Text>
                     </Body>
                 )}

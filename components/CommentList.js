@@ -45,14 +45,11 @@ const CommentList = (props) => {
 
     return (
         <Content>
-            <Separator bordered>
-                <Text>Comments</Text>
-            </Separator>
             {loading ? (
                 <Spinner/>
             ) : (
                 <BaseList
-                    dataArray={comment}
+                    dataArray={comment.reverse()}
                     renderItem={({item}) => <CommentItem
                                 singleComment={item}/>}
                 />

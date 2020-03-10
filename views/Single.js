@@ -5,6 +5,7 @@ import {
     Card,
     CardItem,
     Left,
+    Right,
     Body,
     H3,
     Icon,
@@ -22,7 +23,7 @@ import {fetchGET, fetchPOST, fetchDELETElike} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
 import FormCommentInput from '../components/FormCommentInput';
 import CommentList from "../components/CommentList";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {validateField} from "../utils/validation";
 import {commentConstraints} from "../constants/validationConst";
 import useUploadForm from "../hooks/UploadHooks";
@@ -212,25 +213,26 @@ const Single = (props) => {
                     </CardItem>
                 </Card>
 
-                <Form>
-                    <Item>
-                        <FormCommentInput
-                            placeholder="Add comment..."
-                            value={inputs.comment}
-                            onChangeText={handleComment}
-                        />
-                    </Item>
+                <Card>
+                    <Form style={{ flexDirection:'row' }}>
+                        <Item style={{flex:3}}>
+                            <FormCommentInput
+                                placeholder="Add comment..."
+                                value={inputs.comment}
+                                onChangeText={handleComment}
+                            />
+                        </Item>
+                        <Right>
+                            <Button style={{flex:1}}
+                                onPress={handleSendComment}
+                            >
+                                <Text>Send</Text>
+                            </Button>
+                        </Right>
+                    </Form>
 
-                    <Button
-                        full
-                        onPress={handleSendComment}
-                    >
-                        <Text>Send</Text>
-                    </Button>
-                </Form>
-
-                <CommentList file={file.file_id}/>
-
+                    <CommentList file={file.file_id}/>
+                </Card>
             </Content>
         </Container>
     );
