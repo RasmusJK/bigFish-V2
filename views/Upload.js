@@ -28,6 +28,8 @@ const Upload = (props) => {
   const [media, setMedia] = useContext(MediaContext);
   const [image, setImage] = useState(null);
   const [send, setSend] = useState(false);
+  let longitude;
+  let latitude;
 
   const {
     handleTitleChange,
@@ -84,7 +86,10 @@ const Upload = (props) => {
       exif: true,
     });
 
-    console.log(result);
+    console.log(result.exif.GPSLatitude);
+    latitude = result.exif.GPSLatitude;
+    longitude = result.exif.GPSLongitude;
+    console.log('kuvan desc', latitude, longitude);
 
     if (!result.cancelled) {
       setImage(result);
@@ -97,13 +102,15 @@ const Upload = (props) => {
   };
 
   const handleDescription = (text) => {
+
     handleDescriptionChange(text);
     validate('description', text);
   };
 
   const upload = () => {
     console.log('reg field errors', errors);
-    handleUpload(image, props.navigation, setMedia);
+    console.log('kuvan desc', latitude, longitude);
+    handleUpload(image, props.navigation, setMedia, latitude, longitude);
     reset();
   };
 

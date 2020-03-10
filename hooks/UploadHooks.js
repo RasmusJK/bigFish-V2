@@ -23,7 +23,7 @@ const useUploadForm = () => {
       }));
   };
 
-  const handleUpload = async (file, navigation, setMedia) => {
+  const handleUpload = async (file, navigation, setMedia, longitude, latitude) => {
     const filename = file.uri.split('/').pop();
     const match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
@@ -31,6 +31,12 @@ const useUploadForm = () => {
     if (type === 'image/jpg') {
       type = 'image/jpeg';
     }
+    const moreData = {
+      description: inputs.description,
+      longitude: longitude,
+      latitude: latitude
+    }
+    console.log('moredata', moreData);
 
     const fd = new FormData();
     fd.append('title', inputs.title);
