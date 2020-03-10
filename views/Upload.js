@@ -6,6 +6,10 @@ import {
   Text,
   Item,
   Spinner,
+  Radio,
+  Left,
+  Right,
+  ListItem,
 } from 'native-base';
 
 import {
@@ -48,12 +52,12 @@ const Upload = (props) => {
   const validate = (field, value) => {
     console.log('vp', validationProperties[field]);
     setErrors((errors) =>
-      ({
-        ...errors,
-        [field]: validateField({[field]: value},
-            uploadConstraints),
-        fetch: undefined,
-      }));
+        ({
+          ...errors,
+          [field]: validateField({[field]: value},
+              uploadConstraints),
+          fetch: undefined,
+        }));
   };
 
   const reset = () => {
@@ -103,14 +107,19 @@ const Upload = (props) => {
 
   const upload = () => {
     console.log('reg field errors', errors);
-    handleUpload(image, props.navigation, setMedia);
+    handleUpload(image, props.navigation, setMedia,'fishforum');
+    reset();
+  };
+  const uploadMarket = ()=> {
+    console.log('reg field errors', errors);
+    handleUpload(image, props.navigation, setMedia,'fishmarket');
     reset();
   };
 
   const checkErrors = () => {
     console.log('errors', errors);
     if (errors.title !== undefined ||
-      errors.description !== undefined) {
+        errors.description !== undefined) {
       setSend(false);
     } else {
       setSend(true);
@@ -124,48 +133,57 @@ const Upload = (props) => {
   console.log('send', send);
 
   return (
-    <Content>
-      {loading ? (
-        <Spinner/>
-      ) : (
-        <Form>
-          <Item>
-            <FormTextInput
-              placeholder='Title'
-              onChangeText={handleTitle}
-              value={inputs.title}
-              error={errors.title}
-            />
-          </Item>
-          <Item>
-            <FormTextInput
-              placeholder='Description'
-              onChangeText={handleDescription}
-              value={inputs.description}
-              error={errors.description}
-            />
-          </Item>
-          {image &&
-          <Image source={{uri: image.uri}}
-            style={{width: '100%', height: deviceHeight / 3}}/>
-          }
-          <Button full onPress={pickImage}>
-            <Text>Select file</Text>
-          </Button>
-          {image && send &&
-          <Button full onPress={upload}>
-            <Text>Upload</Text>
-          </Button>
-          }
-          <Button
-            dark
-            full
-            onPress={reset}>
-            <Text>Reset form</Text>
-          </Button>
-        </Form>
-      )}
-    </Content>
+      <Content>
+        {loading ? (
+            <Spinner/>
+        ) : (
+            <Form>
+              <Item>
+                <FormTextInput
+                    placeholder='Title'
+                    onChangeText={handleTitle}
+                    value={inputs.title}
+                    error={errors.title}
+                />
+              </Item>
+              <Item>
+                <FormTextInput
+                    placeholder='Description'
+                    onChangeText={handleDescription}
+                    value={inputs.description}
+                    error={errors.description}
+                />
+              </Item>
+
+              {image &&
+              <Image source={{uri: image.uri}}
+                     style={{width: '100%', height: deviceHeight / 3}}/>
+              }
+              <Button full onPress={pickImage}>
+                <Text>Select file</Text>
+              </Button>
+
+              {image && send &&
+              <Button full onPress={upload}>
+                <Text>Upload to forum</Text>
+              </Button>
+              }
+              {image && send &&
+              <Button full onPress={uploadMarket}>
+                <Text>Upload to market</Text>
+              </Button>
+              }
+
+
+              <Button
+                  dark
+                  full
+                  onPress={reset}>
+                <Text>Reset form</Text>
+              </Button>
+            </Form>
+        )}
+      </Content>
   );
 };
 

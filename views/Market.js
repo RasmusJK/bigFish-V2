@@ -10,7 +10,7 @@ const Market = (props) => {
 
   return (
       <View>
-        <List navigation={navigation} mode={'market'}></List>
+        <List navigation={navigation} mode={'market'}/>
       </View>);
 };
 Home.propTypes = {
