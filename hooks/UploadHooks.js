@@ -37,10 +37,16 @@ const useUploadForm = () => {
     if (type === 'image/jpg') {
       type = 'image/jpeg';
     }
+    const moreData = {
+      description: inputs.description,
+      latitude: file.exif.GPSLatitude,
+      longitude: file.exif.GPSLongitude
+      }
+    console.log('lokaatiola', {latitude: file.exif.GPSLatitude});
 
     const fd = new FormData();
     fd.append('title', inputs.title);
-    fd.append('description', inputs.description);
+    fd.append('description', JSON.stringify(moreData)); //inputs.description
     fd.append('file', {uri: file.uri, name: filename, type});
 
     console.log('FD:', fd);
