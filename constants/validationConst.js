@@ -55,4 +55,16 @@ const uploadConstraints = {
   },
 };
 
-export {registerConstraints, uploadConstraints};
+const commentConstraints = {
+  comment: {
+    presence: {
+      message: 'cannot be blank',
+    },
+    length:{
+      minimum: 1,
+      message: 'cannot be blank',
+    }
+  },
+};
+
+export {registerConstraints, uploadConstraints, commentConstraints};

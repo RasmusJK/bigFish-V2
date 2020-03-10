@@ -34,7 +34,6 @@ const CommentList = (props) => {
 
             setComment(json);
             setLoading(false);
-
         }catch(e){
             console.log('getComments error: ', e);
         }
@@ -46,14 +45,11 @@ const CommentList = (props) => {
 
     return (
         <Content>
-            <Separator bordered>
-                <Text>Comments</Text>
-            </Separator>
             {loading ? (
                 <Spinner/>
             ) : (
                 <BaseList
-                    dataArray={comment}
+                    dataArray={comment.reverse()}
                     renderItem={({item}) => <CommentItem
                                 singleComment={item}/>}
                 />
