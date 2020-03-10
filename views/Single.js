@@ -172,7 +172,7 @@ const Single = (props) => {
                   latitudeDelta: 0.09,
                   longitudeDelta: 0.04,
                 }}>
-                <Marker></Marker>
+
               </MapView>
             </View>
           </CardItem>
