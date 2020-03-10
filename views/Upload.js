@@ -84,7 +84,7 @@ const Upload = (props) => {
       exif: true,
     });
 
-    console.log(result);
+    console.log('pickImage result: ',result);
 
     if (!result.cancelled) {
       setImage(result);
