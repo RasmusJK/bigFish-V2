@@ -2,14 +2,14 @@
 <project version="4">
   <component name="PublishConfigData">
     <serverData>
-      <paths name="Server">
+      <paths name="educloud CentOS server">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
-      <paths name="Shell">
+      <paths name="metropolia">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

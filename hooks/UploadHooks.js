@@ -1,6 +1,12 @@
 import {useState} from 'react';
 import {AsyncStorage} from 'react-native';
-import {fetchFormData, fetchPUT, getAllMedia, getUserMedia} from './APIHooks';
+import {
+  fetchFormData,
+  fetchPOST,
+  fetchPUT,
+  getAllMedia,
+  getUserMedia,
+} from './APIHooks';
 
 const useUploadForm = () => {
   const [inputs, setInputs] = useState({});
@@ -50,8 +56,11 @@ const useUploadForm = () => {
 
 
       const resp = await fetchFormData('media', fd, token);
-      console.log('upl resp', resp);
+
+      console.log('upl resp test tästä saa id ', resp.file_id);
       if (resp.message) {
+        console.log('token',token);
+        handleTag(resp.file_id, 'fishforum',token);
         const data = await getAllMedia();
         setMedia((media) =>
           ({
@@ -82,6 +91,16 @@ const useUploadForm = () => {
         navigation.pop();
       }
     } catch (e) {
+      console.log(e.message);
+    }
+  };
+  const handleTag = async (file_id,tag,token) =>{
+    try {
+
+      const resp = await fetchPOST('tags',{file_id,tag},token);
+      console.log('tag resp',resp);
+
+    }catch (e) {
       console.log(e.message);
     }
   };
