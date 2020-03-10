@@ -6,16 +6,11 @@ const FormCommentInput = (props) => {
     const {error, ...otherProps} = props;
     return (
         <Body>
-            <Container>
-                <Header/>
-                <Content>
                     <Item regular>
                         <Input
                             {...otherProps}
                         />
                     </Item>
-                </Content>
-            </Container>
             {error &&
             <Badge><Text>{error}</Text></Badge>
             }

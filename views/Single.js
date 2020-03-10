@@ -15,14 +15,14 @@ import {
 } from 'native-base';
 import PropTypes from 'prop-types';
 import AsyncImage from '../components/AsyncImage';
-import {Dimensions} from 'react-native';
+import {Dimensions, TextInput} from 'react-native';
 import {mediaURL} from '../constants/urlConst';
 import {Video} from 'expo-av';
 import {fetchGET, fetchPOST, fetchDELETElike} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
 import FormCommentInput from '../components/FormCommentInput';
 import CommentList from "../components/CommentList";
-import {KeyboardAvoidingView} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {validateField} from "../utils/validation";
 import {commentConstraints} from "../constants/validationConst";
 import useUploadForm from "../hooks/UploadHooks";
@@ -110,10 +110,10 @@ const Single = (props) => {
             }
             for (let i = 0; i < response.length; i++) {
                 if (currentUser.user_id === response[i].user_id) {
-                    console.log('Getlike true');
+                    console.log('getLike true');
                     setLiked(true);
                 } else {
-                    console.log('getlike false');
+                    console.log('getLike false');
                     setLiked(false);
                 }
             }
@@ -123,10 +123,6 @@ const Single = (props) => {
         }
     };
 
-    const handleComment = text => {
-        handleCommentChange(text);
-        validate('comment', text)
-    };
 
     const sendCommentAsync = async () => {
         try {
@@ -144,6 +140,11 @@ const Single = (props) => {
         } catch (e) {
             console.log("commenting error: ", e.message);
         }
+    };
+
+    const handleComment = text => {
+        handleCommentChange(text);
+        validate('comment', text)
     };
 
     const handleSendComment = () => {
@@ -224,7 +225,7 @@ const Single = (props) => {
                         full
                         onPress={handleSendComment}
                     >
-                        <Text >Send</Text>
+                        <Text>Send</Text>
                     </Button>
                 </Form>
 
