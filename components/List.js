@@ -22,13 +22,15 @@ const List = (props) => {
       const token = await AsyncStorage.getItem('userToken');
       const myData = await getUserMedia(token);
       const tagData = await getTaggedMedia('fishforum');
-
+      const tagDataMarket = await getTaggedMedia('fishmarket');
       tagData;
+      tagDataMarket;
 
       setMedia({
         allFiles: allData.reverse(),
         tagFiles: tagData,
         myFiles: myData,
+        market: tagDataMarket,
       });
       setLoading(false);
     } catch (e) {
@@ -56,6 +58,18 @@ const List = (props) => {
               mode={props.mode}
               getMedia={getMedia}
             />}
+          />
+          }
+          {props.mode === 'market' &&
+          <BaseList
+              dataArray={media.market}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => <ListItem
+                  navigation={props.navigation}
+                  singleMedia={item}
+                  mode={props.mode}
+                  getMedia={getMedia}
+              />}
           />
           }
           {props.mode === 'myfiles' &&

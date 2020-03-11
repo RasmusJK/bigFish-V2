@@ -4,6 +4,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from '../views/Home';
+import Market from '../views/Market'
 import Profile from '../views/Profile';
 import Single from '../views/Single';
 import AuthLoading from '../views/AuthLoading';
@@ -16,6 +17,7 @@ import Modify from '../views/Modify';
 const TabNavigator = createBottomTabNavigator(
     {
       Home,
+      Market,
       Profile,
       Upload,
     },
@@ -26,6 +28,8 @@ const TabNavigator = createBottomTabNavigator(
           let iconName;
           if (routeName === 'Home') {
             iconName = 'home';
+          }else if (routeName=== 'Market'){
+            iconName= 'cash';
           } else if (routeName === 'Profile') {
             iconName = 'person';
           } else if (routeName === 'Upload') {

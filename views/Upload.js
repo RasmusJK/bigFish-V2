@@ -6,6 +6,10 @@ import {
   Text,
   Item,
   Spinner,
+  Radio,
+  Left,
+  Right,
+  ListItem,
 } from 'native-base';
 
 import {
@@ -21,8 +25,7 @@ import useUploadForm from '../hooks/UploadHooks';
 import {MediaContext} from '../contexts/MediaContext';
 import {validateField} from '../utils/validation';
 import {uploadConstraints} from '../constants/validationConst';
-let longitude;
-let latitude;
+
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -55,7 +58,7 @@ const Upload = (props) => {
       ({
         ...errors,
         [field]: validateField({[field]: value},
-          uploadConstraints),
+            uploadConstraints),
         fetch: undefined,
       }));
   };
@@ -105,15 +108,19 @@ const Upload = (props) => {
   };
 
   const handleDescription = (text) => {
-
     handleDescriptionChange(text);
     validate('description', text);
   };
 
   const upload = () => {
-    console.log('reg field errors', errors);
-    console.log('kuvan desc', latitude, longitude);
-    handleUpload(image, props.navigation, setMedia, latitude, longitude);
+    console.log('uploadForum reg field errors', errors);
+    handleUpload(image, props.navigation, setMedia, 'fishforum');
+    reset();
+  };
+
+  const uploadMarket = ()=> {
+    console.log('uploadMarket reg field errors', errors);
+    handleUpload(image, props.navigation, setMedia,'fishmarket');
     reset();
   };
 
@@ -136,45 +143,50 @@ const Upload = (props) => {
   return (
     <Content>
       {loading ? (
-        <Spinner />
+        <Spinner/>
       ) : (
-          <Form>
-            <Item>
-              <FormTextInput
-                placeholder='Title'
-                onChangeText={handleTitle}
-                value={inputs.title}
-                error={errors.title}
-              />
-            </Item>
-            <Item>
-              <FormTextInput
-                placeholder='Description'
-                onChangeText={handleDescription}
-                value={inputs.description}
-                error={errors.description}
-              />
-            </Item>
-            {image &&
-              <Image source={{uri: image.uri}}
-                style={{width: '100%', height: deviceHeight / 3}} />
-            }
-            <Button full onPress={pickImage}>
-              <Text>Select file</Text>
-            </Button>
-            {image && send &&
-              <Button full onPress={upload}>
-                <Text>Upload</Text>
-              </Button>
-            }
-            <Button
-              dark
-              full
-              onPress={reset}>
-              <Text>Reset form</Text>
-            </Button>
-          </Form>
-        )}
+        <Form>
+          <Item>
+            <FormTextInput
+              placeholder='Title'
+              onChangeText={handleTitle}
+              value={inputs.title}
+              error={errors.title}
+            />
+          </Item>
+          <Item>
+            <FormTextInput
+              placeholder='Description'
+              onChangeText={handleDescription}
+              value={inputs.description}
+              error={errors.description}
+            />
+          </Item>
+          {image &&
+          <Image source={{uri: image.uri}}
+            style={{width: '100%', height: deviceHeight / 3}}/>
+          }
+          <Button full onPress={pickImage}>
+            <Text>Select file</Text>
+          </Button>
+          {image && send &&
+          <Button full onPress={upload}>
+            <Text>Upload to forum</Text>
+          </Button>
+          }
+          {image && send &&
+          <Button full onPress={uploadMarket}>
+            <Text>Upload to market</Text>
+          </Button>
+          }
+          <Button
+            dark
+            full
+            onPress={reset}>
+            <Text>Reset form</Text>
+          </Button>
+        </Form>
+      )}
     </Content>
   );
 };

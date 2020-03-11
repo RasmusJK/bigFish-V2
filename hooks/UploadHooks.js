@@ -29,7 +29,16 @@ const useUploadForm = () => {
       }));
   };
 
-  const handleUpload = async (file, navigation, setMedia) => {
+  const handleTagChange = (text) => {
+    setInputs((inputs) =>
+        ({
+          ...inputs,
+          tag: text,
+        }));
+  };
+
+
+  const handleUpload = async (file, navigation, setMedia,tag) => {
     const filename = file.uri.split('/').pop();
     const match = /\.(\w+)$/.exec(filename);
     let type = match ? `image/${match[1]}` : `image`;
@@ -60,7 +69,7 @@ const useUploadForm = () => {
       console.log('upl resp test tästä saa id ', resp.file_id);
       if (resp.message) {
         console.log('token',token);
-        handleTag(resp.file_id, 'fishforum',token);
+        handleTag(resp.file_id, tag,token);
         const data = await getAllMedia();
         setMedia((media) =>
           ({
@@ -110,6 +119,7 @@ const useUploadForm = () => {
     handleDescriptionChange,
     handleUpload,
     handleModify,
+    handleTagChange,
     inputs,
     errors,
     loading,
