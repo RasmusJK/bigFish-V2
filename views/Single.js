@@ -209,6 +209,17 @@ const Single = (props) => {
               }
             </CardItem>
             <CardItem>
+              {!liked ? <Button success onPress={like}>
+                <Text>Like</Text>
+              </Button> :
+                <Button danger onPress={dislike}>
+                  <Text>Dislike</Text>
+                </Button>}
+              <Left>
+                {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
+              </Left>
+            </CardItem>
+            <CardItem>
               <Left>
                 <Icon name='image' />
                 <Body>
