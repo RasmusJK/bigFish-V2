@@ -23,10 +23,14 @@ import {Video} from 'expo-av';
 import {fetchGET, fetchPOST, fetchDELETElike} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import {setComments} from '../hooks/UploadHooks';
+import useUploadForm, {setComments} from '../hooks/UploadHooks';
 import List from "../components/List";
 import CommentList from "../components/CommentList";
 import {getPlatformOrientationLockAsync} from 'expo/build/ScreenOrientation/ScreenOrientation';
+import useCommentForm from "../hooks/CommentHooks";
+import {validateField} from "../utils/validation";
+import {commentConstraints} from "../constants/validationConst";
+import FormCommentInput from "../components/FormCommentInput";
 
 const deviceHeight = Dimensions.get('window').height;
 
