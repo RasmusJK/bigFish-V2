@@ -24,6 +24,7 @@ const Profile = (props) => {
     userdata: {},
     avatar: 'https://',
   });
+//Function to get user information and avatar
   const userToState = async () => {
     try {
       const userFromStorage = await AsyncStorage.getItem('user');
@@ -49,7 +50,7 @@ const Profile = (props) => {
   useEffect(() => {
     userToState();
   }, []);
-
+//Sign out function
   const signOutAsync = async () => {
     await AsyncStorage.clear();
     props.navigation.navigate('Auth');

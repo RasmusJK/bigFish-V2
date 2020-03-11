@@ -12,7 +12,7 @@ const useUploadForm = () => {
   const [inputs, setInputs] = useState({});
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
+  //Function to handling title change
   const handleTitleChange = (text) => {
     setInputs((inputs) =>
       ({
@@ -20,7 +20,7 @@ const useUploadForm = () => {
         title: text,
       }));
   };
-
+  //Function to handling description change
   const handleDescriptionChange = (text) => {
     setInputs((inputs) =>
       ({
@@ -28,7 +28,7 @@ const useUploadForm = () => {
         description: text,
       }));
   };
-
+  //Function to handle tag change
   const handleTagChange = (text) => {
     setInputs((inputs) =>
         ({
@@ -37,7 +37,7 @@ const useUploadForm = () => {
         }));
   };
 
-
+  //Function to upload new media/pictures with metadata and description. Setting the app Tag for the post
   const handleUpload = async (file, navigation, setMedia,tag) => {
     const filename = file.uri.split('/').pop();
     const match = /\.(\w+)$/.exec(filename);
@@ -85,6 +85,7 @@ const useUploadForm = () => {
     }
   };
 
+  //Function to handle modifications to existing postings
   const handleModify = async (id, navigation, setMedia) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -104,6 +105,8 @@ const useUploadForm = () => {
       console.log(e.message);
     }
   };
+
+  //Function to handle the apps Tag so it shows only the posts from this app
   const handleTag = async (file_id,tag,token) =>{
     try {
 

@@ -44,7 +44,7 @@ const Single = (props) => {
   const allData = JSON.parse(file.description);
   const description = allData.description;
   let longitude; let latitude; let teksti;
-
+//if statement to check if the picture has the location data if there is none it sets one to keep the app not from crashing
   if (allData.longitude === undefined) {
     latitude = 61.249999;
     longitude = 28.249999;
@@ -68,7 +68,7 @@ const Single = (props) => {
   const validationProperties = {
     comment: {comment: inputs.comment},
   };
-
+  //Validation function
   const validate = (field, value) => {
     console.log('vp', validationProperties[field]);
     setErrors((errors) =>
@@ -79,7 +79,7 @@ const Single = (props) => {
         fetch: undefined,
       }));
   };
-
+  //Get user function to get user information
   const getUser = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -89,7 +89,7 @@ const Single = (props) => {
       console.log('getUser error', e);
     }
   };
-
+  //New like function
   const like = async () => {
     try {
       const data = {
@@ -103,7 +103,7 @@ const Single = (props) => {
       console.log(error.message);
     }
   };
-
+  //Dislike function
   const dislike = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -118,7 +118,7 @@ const Single = (props) => {
       console.log(error.message);
     }
   };
-
+  //Getting like count function
   const getLikes = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');

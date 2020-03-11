@@ -71,7 +71,7 @@ const fetchDELETE = async (endpoint = '', params = '', token = '') => {
   }
   return await response.json();
 };
-
+//Api hook for deleting likes
 const fetchDELETElike = async (endpoint = '', data = {}, token = '') => {
   try {
     const fetchOptions = {

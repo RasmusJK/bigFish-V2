@@ -38,6 +38,7 @@ const Login = (props) => {
     setErrors,
   } = useSignUpForm();
 
+  //Validation Properties
   const validationProperties = {
     username: {username: inputs.username},
     email: {email: inputs.email},
@@ -49,6 +50,7 @@ const Login = (props) => {
     },
   };
 
+  //Sign in function with existing user
   const signInAsync = async () => {
     try {
       const user = await fetchPOST('login', inputs);
@@ -65,6 +67,8 @@ const Login = (props) => {
         }));
     }
   };
+
+  //Function to register new user with validation
   const registerAsync = async () => {
     const regValid = validateOnSend(validationProperties);
     console.log('reg field errors', errors);
