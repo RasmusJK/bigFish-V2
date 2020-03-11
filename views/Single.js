@@ -12,6 +12,8 @@ import {
   View,
   Right,
   Button,
+  Form,
+  Item,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import AsyncImage from '../components/AsyncImage';
@@ -37,9 +39,43 @@ const Single = (props) => {
   const [likeCount, setLikeCount] = useState();
   const allData = JSON.parse(file.description);
   const description = allData.description;
-  const latitude = allData.latitude;
-  const longitude = allData.longitude;
+  let longitude;
+  let latitude;
+  let teksti;
+  if (allData.longitude === undefined) {
+    latitude = 61.249999;
+    longitude = 28.249999;
+    teksti = 'No location in the picture';
+  } else {
+    longitude = allData.longitude;
+    latitude = allData.latitude;
+  }
+  console.log(latitude, longitude);
 
+  const media = props.navigation.getParam('file', 'media not found');
+  console.log('Single media const: ', media);
+
+  const {
+    errors,
+    setErrors,
+  } = useUploadForm();
+
+  const {handleCommentChange, inputs} = useCommentForm();
+
+  const validationProperties = {
+    comment: {comment: inputs.comment},
+  };
+
+  const validate = (field, value) => {
+    console.log('vp', validationProperties[field]);
+    setErrors((errors) =>
+      ({
+        ...errors,
+        [field]: validateField({[field]: value},
+          commentConstraints),
+        fetch: undefined,
+      }));
+  };
 
   const getUser = async () => {
     try {
@@ -103,6 +139,35 @@ const Single = (props) => {
     }
   };
 
+<<<<<<< Updated upstream
+=======
+  const sendCommentAsync = async () => {
+    try {
+      const fileId = media.file_id;
+      const token = await AsyncStorage.getItem("userToken");
+      const comment = {
+        file_id: fileId,
+        comment: inputs.comment
+      };
+      const result = await fetchPOST("comments", comment, token);
+      console.log("sendComment result: ", result);
+      props.navigation.push("Single", {
+        file: media
+      });
+    } catch (e) {
+      console.log("commenting error: ", e.message);
+    }
+  };
+
+  const handleComment = text => {
+    handleCommentChange(text);
+    validate('comment', text)
+  };
+
+  const handleSendComment = () => {
+    sendCommentAsync();
+  };
+>>>>>>> Stashed changes
 
   useEffect(() => {
     getUser();
@@ -171,16 +236,29 @@ const Single = (props) => {
                     height: Dimensions.get('window').height / 2,
                   }}
                   initialRegion={{
+<<<<<<< Updated upstream
                     latitude: longitude,
                     longitude: latitude,
+=======
+                    latitude: latitude,
+                    longitude: longitude,
+>>>>>>> Stashed changes
                     latitudeDelta: 0.09,
                     longitudeDelta: 0.04,
                   }}>
                   <Marker
                     coordinate={{
+<<<<<<< Updated upstream
                       latitude: longitude,
                       longitude: latitude,
                     }}
+=======
+                      latitude: latitude,
+                      longitude: longitude,
+                    }}
+                    title={teksti}
+
+>>>>>>> Stashed changes
                   />
                 </MapView>
               </View>
@@ -216,10 +294,36 @@ const Single = (props) => {
             </CardItem>
           </Card>
         }
+<<<<<<< Updated upstream
 
         <CommentList file={file.file_id}></CommentList>
       </Content>
     </Container >
+=======
+
+        <Card>
+          <Form style={{flexDirection: 'row'}}>
+            <Item style={{flex: 3}}>
+              <FormCommentInput
+                placeholder="Add comment..."
+                value={inputs.comment}
+                onChangeText={handleComment}
+              />
+            </Item>
+            <Right>
+              <Button style={{flex: 1}}
+                onPress={handleSendComment}
+              >
+                <Text>Send</Text>
+              </Button>
+            </Right>
+          </Form>
+
+          <CommentList file={file.file_id} />
+        </Card>
+      </Content>
+    </Container>
+>>>>>>> Stashed changes
   );
 };
 
