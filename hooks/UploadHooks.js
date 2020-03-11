@@ -50,7 +50,8 @@ const useUploadForm = () => {
       description: inputs.description,
       latitude: file.exif.GPSLatitude,
       longitude: file.exif.GPSLongitude
-      }
+      };
+
     console.log('lokaatiola', {latitude: file.exif.GPSLatitude});
 
     const fd = new FormData();

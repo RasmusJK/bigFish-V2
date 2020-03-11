@@ -23,7 +23,7 @@ import {Video} from 'expo-av';
 import {fetchGET, fetchPOST, fetchDELETElike} from '../hooks/APIHooks';
 import {AsyncStorage} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import useUploadForm, {setComments} from '../hooks/UploadHooks';
+import useUploadForm from '../hooks/UploadHooks';
 import List from "../components/List";
 import CommentList from "../components/CommentList";
 import {getPlatformOrientationLockAsync} from 'expo/build/ScreenOrientation/ScreenOrientation';
@@ -43,9 +43,8 @@ const Single = (props) => {
   const [likeCount, setLikeCount] = useState();
   const allData = JSON.parse(file.description);
   const description = allData.description;
-  let longitude;
-  let latitude;
-  let teksti;
+  let longitude; let latitude; let teksti;
+
   if (allData.longitude === undefined) {
     latitude = 61.249999;
     longitude = 28.249999;
