@@ -233,29 +233,18 @@ const Single = (props) => {
                     height: Dimensions.get('window').height / 2,
                   }}
                   initialRegion={{
-<<<<<<< Updated upstream
-                    latitude: longitude,
-                    longitude: latitude,
-=======
                     latitude: latitude,
                     longitude: longitude,
->>>>>>> Stashed changes
                     latitudeDelta: 0.09,
                     longitudeDelta: 0.04,
                   }}>
                   <Marker
                     coordinate={{
-<<<<<<< Updated upstream
-                      latitude: longitude,
-                      longitude: latitude,
-                    }}
-=======
                       latitude: latitude,
                       longitude: longitude,
                     }}
                     title={teksti}
 
->>>>>>> Stashed changes
                   />
                 </MapView>
               </View>
@@ -291,12 +280,6 @@ const Single = (props) => {
             </CardItem>
           </Card>
         }
-<<<<<<< Updated upstream
-
-        <CommentList file={file.file_id}></CommentList>
-      </Content>
-    </Container >
-=======
 
         <Card>
           <Form style={{flexDirection: 'row'}}>
@@ -320,7 +303,6 @@ const Single = (props) => {
         </Card>
       </Content>
     </Container>
->>>>>>> Stashed changes
   );
 };
 
