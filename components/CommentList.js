@@ -49,7 +49,7 @@ const CommentList = (props) => {
                 <Spinner/>
             ) : (
                 <BaseList
-                    dataArray={comment.reverse()}
+                    dataArray={comment}
                     renderItem={({item}) => <CommentItem
                                 singleComment={item}/>}
                 />
