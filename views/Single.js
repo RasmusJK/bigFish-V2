@@ -139,8 +139,6 @@ const Single = (props) => {
     }
   };
 
-<<<<<<< Updated upstream
-=======
   const sendCommentAsync = async () => {
     try {
       const fileId = media.file_id;
@@ -167,7 +165,6 @@ const Single = (props) => {
   const handleSendComment = () => {
     sendCommentAsync();
   };
->>>>>>> Stashed changes
 
   useEffect(() => {
     getUser();
