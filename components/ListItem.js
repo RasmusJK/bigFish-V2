@@ -62,7 +62,7 @@ const ListItem = (props) => {
                             flexDirection: 'row',
                             justifyContent: 'flex-end',
                         }}>
-                            <Text note style={{flex: 1}}>By {user.username}</Text>
+                            <Text note style={{flex: 1}}>{user.username}</Text>
                             <Button small style={{flex: 1}} transparent iconRight onPress={
                                 () => {
                                     props.navigation.push('Single', {file: props.singleMedia});
@@ -80,7 +80,7 @@ const ListItem = (props) => {
                             flexDirection: 'row',
                             justifyContent: 'flex-end',
                         }}>
-                            <Text note style={{flex: 1}}>By {user.username}</Text>
+                            <Text note style={{flex: 1}}>{user.username}</Text>
                             <Button small style={{flex: 1}} transparent iconRight onPress={
                                 () => {
                                     props.navigation.push('Single', {file: props.singleMedia});
@@ -99,7 +99,7 @@ const ListItem = (props) => {
                                 flexDirection: 'row',
                                 justifyContent: 'flex-end',
                             }}>
-                                <Text note style={{flex: 1}}>By {user.username}</Text>
+                                <Text note style={{flex: 1}}>{user.username}</Text>
                                 <Button warning onPress={
                                     () => {
                                         props.navigation.push('Modify', {file: props.singleMedia});
