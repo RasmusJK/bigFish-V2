@@ -8,7 +8,7 @@ import CardListItem from './CardListItem';
 import {MediaContext} from '../contexts/MediaContext';
 import {getAllMedia, getUserMedia, getTaggedMedia} from '../hooks/APIHooks';
 import PropTypes from 'prop-types';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, FlatList} from 'react-native';
 import getTheme from '../native-base-theme/components';
 import {ThemeProvider} from "react-native-elements";
 
