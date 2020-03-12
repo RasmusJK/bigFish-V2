@@ -14,6 +14,7 @@ import {
     Button,
     Form,
     Item,
+    StyleProvider,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import AsyncImage from '../components/AsyncImage';
@@ -31,6 +32,7 @@ import useCommentForm from "../hooks/CommentHooks";
 import {validateField} from "../utils/validation";
 import {commentConstraints} from "../constants/validationConst";
 import FormCommentInput from "../components/FormCommentInput";
+import getTheme from '../native-base-theme/components';
 
 const deviceHeight = Dimensions.get('window').height;
 
@@ -180,153 +182,155 @@ const Single = (props) => {
     }, []);
 
     return (
-        <Container>
-            <Content>
+        <StyleProvider style={getTheme()}>
+            <Container>
+                <Content>
 
-                {toggleCardItem &&
-                <Card>
-                    <CardItem>
-                        {file.media_type === 'image' ? (
-                                <AsyncImage
-                                    style={{
-                                        width: '100%',
-                                        height: deviceHeight / 2,
-                                    }}
-                                    spinnerColor='#777'
-                                    source={{uri: mediaURL + file.filename}}
-                                />) :
-                            (<Video
-                                    source={{uri: mediaURL + file.filename}}
-                                    resizeMode={'cover'}
-                                    useNativeControls
-                                    style={{
-                                        width: '100%',
-                                        height: deviceHeight / 2,
-                                    }}
-                                    onError={(e) => {
-                                        console.log('video error', e);
-                                    }}
-                                    onLoad={(evt) => {
-                                        console.log('onload', evt);
-                                    }}
-                                />
-                            )
-                        }
-                    </CardItem>
-                    <CardItem>
-                        {!liked ? <Button success onPress={like}>
-                                <Text>Like</Text>
-                            </Button> :
-                            <Button danger onPress={dislike}>
-                                <Text>Dislike</Text>
-                            </Button>}
-                        <Left>
-                            {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
-                        </Left>
-                        <Right>
-                            <Button full onPress={() => {
-                                setToggleCardItem(false);
-                            }}>
-                                <Text>Map</Text>
-                            </Button>
-                        </Right>
-                    </CardItem>
-                    <CardItem>
-                        <Left>
-                            <Icon name='image'/>
-                            <Body>
-                                <H3>{file.title}</H3>
-                                <Text>{description}</Text>
-                                <Text>By {user.username}</Text>
-                            </Body>
-                        </Left>
-                    </CardItem>
-                </Card>
-                }
-                {!toggleCardItem &&
-                <Card>
-                    <CardItem>
-                        <View>
-                            <MapView
-                                style={{
-                                    width: Dimensions.get('window').width / 1.1,
-                                    height: Dimensions.get('window').height / 2,
-                                }}
-                                initialRegion={{
-                                    latitude: latitude,
-                                    longitude: longitude,
-                                    latitudeDelta: 0.09,
-                                    longitudeDelta: 0.04,
-                                }}>
-                                <Marker
-                                    coordinate={{
-                                        latitude: latitude,
-                                        longitude: longitude,
-                                    }}
-                                    title={teksti}
-
-                                />
-                            </MapView>
-                        </View>
-                    </CardItem>
-                    <CardItem>
-                        {!liked ? <Button success onPress={like}>
-                                <Text>Like</Text>
-                            </Button> :
-                            <Button danger onPress={dislike}>
-                                <Text>Dislike</Text>
-                            </Button>}
-                        <Left>
-                            {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
-                        </Left>
-                        <Right>
-                        <Button full onPress={() => {
-                                setToggleCardItem(true);
-                            }}>
-                                <Text>Picture</Text>
-                            </Button>
-                        </Right>
-                    </CardItem>
-
-                    <CardItem>
-                        <Left>
-                            <Icon name='image'/>
-                            <Body>
-                                <H3>{file.title}</H3>
-                                <Text>{description}</Text>
-                                <Text>By {user.username}</Text>
-                            </Body>
-                        </Left>
-                    </CardItem>
-                </Card>
-                }
-
-                <Card>
-
-                    <KeyboardAvoidingView behavior="position">
-                        <Form style={{flexDirection: 'row'}}>
-                            <CardItem style={{flex: 3}}>
-                                <FormCommentInput
-                                    placeholder="Add comment..."
-                                    value={inputs.comment}
-                                    onChangeText={handleComment}
-                                />
-                            </CardItem>
+                    {toggleCardItem &&
+                    <Card>
+                        <CardItem>
+                            {file.media_type === 'image' ? (
+                                    <AsyncImage
+                                        style={{
+                                            width: '100%',
+                                            height: deviceHeight / 2,
+                                        }}
+                                        spinnerColor='#777'
+                                        source={{uri: mediaURL + file.filename}}
+                                    />) :
+                                (<Video
+                                        source={{uri: mediaURL + file.filename}}
+                                        resizeMode={'cover'}
+                                        useNativeControls
+                                        style={{
+                                            width: '100%',
+                                            height: deviceHeight / 2,
+                                        }}
+                                        onError={(e) => {
+                                            console.log('video error', e);
+                                        }}
+                                        onLoad={(evt) => {
+                                            console.log('onload', evt);
+                                        }}
+                                    />
+                                )
+                            }
+                        </CardItem>
+                        <CardItem>
+                            {!liked ? <Button success onPress={like}>
+                                    <Text>Like</Text>
+                                </Button> :
+                                <Button danger onPress={dislike}>
+                                    <Text>Dislike</Text>
+                                </Button>}
+                            <Left>
+                                {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
+                            </Left>
                             <Right>
-                                <Button style={{flex: 1}}
-                                        onPress={handleSendComment}
-                                >
-                                    <Text>Send</Text>
+                                <Button full onPress={() => {
+                                    setToggleCardItem(false);
+                                }}>
+                                    <Text>Map</Text>
                                 </Button>
                             </Right>
-                        </Form>
-                    </KeyboardAvoidingView>
+                        </CardItem>
+                        <CardItem>
+                            <Left>
+                                <Icon name='image'/>
+                                <Body>
+                                    <H3>{file.title}</H3>
+                                    <Text>{description}</Text>
+                                    <Text>By {user.username}</Text>
+                                </Body>
+                            </Left>
+                        </CardItem>
+                    </Card>
+                    }
+                    {!toggleCardItem &&
+                    <Card>
+                        <CardItem>
+                            <View>
+                                <MapView
+                                    style={{
+                                        width: Dimensions.get('window').width / 1.1,
+                                        height: Dimensions.get('window').height / 2,
+                                    }}
+                                    initialRegion={{
+                                        latitude: latitude,
+                                        longitude: longitude,
+                                        latitudeDelta: 0.09,
+                                        longitudeDelta: 0.04,
+                                    }}>
+                                    <Marker
+                                        coordinate={{
+                                            latitude: latitude,
+                                            longitude: longitude,
+                                        }}
+                                        title={teksti}
 
-                    <CommentList file={file.file_id}/>
-                </Card>
+                                    />
+                                </MapView>
+                            </View>
+                        </CardItem>
+                        <CardItem>
+                            {!liked ? <Button success onPress={like}>
+                                    <Text>Like</Text>
+                                </Button> :
+                                <Button danger onPress={dislike}>
+                                    <Text>Dislike</Text>
+                                </Button>}
+                            <Left>
+                                {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
+                            </Left>
+                            <Right>
+                                <Button full onPress={() => {
+                                    setToggleCardItem(true);
+                                }}>
+                                    <Text>Picture</Text>
+                                </Button>
+                            </Right>
+                        </CardItem>
 
-            </Content>
-        </Container>
+                        <CardItem>
+                            <Left>
+                                <Icon name='image'/>
+                                <Body>
+                                    <H3>{file.title}</H3>
+                                    <Text>{description}</Text>
+                                    <Text>By {user.username}</Text>
+                                </Body>
+                            </Left>
+                        </CardItem>
+                    </Card>
+                    }
+
+                    <Card>
+
+                        <KeyboardAvoidingView behavior="position">
+                            <Form style={{flexDirection: 'row'}}>
+                                <CardItem style={{flex: 3}}>
+                                    <FormCommentInput
+                                        placeholder="Add comment..."
+                                        value={inputs.comment}
+                                        onChangeText={handleComment}
+                                    />
+                                </CardItem>
+                                <Right>
+                                    <Button style={{flex: 1}}
+                                            onPress={handleSendComment}
+                                    >
+                                        <Text>Send</Text>
+                                    </Button>
+                                </Right>
+                            </Form>
+                        </KeyboardAvoidingView>
+
+                        <CommentList file={file.file_id}/>
+                    </Card>
+
+                </Content>
+            </Container>
+        </StyleProvider>
     );
 };
 

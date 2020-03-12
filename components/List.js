@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, {useContext, useEffect, useState} from 'react';
 import {
-  List as BaseList, Spinner, View,
+  List as BaseList, Spinner, View, StyleProvider,
 } from 'native-base';
 import ListItem from './ListItem';
 import CardListItem from './CardListItem';
@@ -9,6 +9,8 @@ import {MediaContext} from '../contexts/MediaContext';
 import {getAllMedia, getUserMedia, getTaggedMedia} from '../hooks/APIHooks';
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
+import getTheme from '../native-base-theme/components';
+import {ThemeProvider} from "react-native-elements";
 
 const List = (props) => {
   const [media, setMedia] = useContext(MediaContext);
@@ -44,6 +46,7 @@ const List = (props) => {
   }, []);
 
   return (
+      <StyleProvider style={getTheme()}>
     <View>
       {loading ? (
         <Spinner/>
@@ -88,6 +91,7 @@ const List = (props) => {
         </>
       )}
     </View>
+      </StyleProvider>
   );
 };
 

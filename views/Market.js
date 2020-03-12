@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text,View} from 'native-base';
+import {Text,View, StyleProvider} from 'native-base';
 import List from '../components/List';
 import PropTypes from 'prop-types';
 import Home from './Home';
