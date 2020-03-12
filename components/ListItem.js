@@ -95,7 +95,7 @@ const ListItem = (props) => {
                             <View style={{
                                 marginLeft: 10,
                                 marginTop: 10,
-                                width: '80%',
+                                width: '90%',
                                 flexDirection: 'row',
                                 justifyContent: 'flex-end',
                             }}>
