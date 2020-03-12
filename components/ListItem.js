@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     ListItem as BaseListItem,
     Left,
@@ -14,6 +14,7 @@ import {
     Image,
     StyleProvider,
     View,
+    Spinner,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import {mediaURL} from '../constants/urlConst';
@@ -22,52 +23,24 @@ import {AsyncStorage, TouchableOpacity} from 'react-native';
 import getTheme from '../native-base-theme/components';
 
 const ListItem = (props) => {
-    let [liked, setLiked] = useState(false);
-
     const allData = JSON.parse(props.singleMedia.description);
     const description = allData.description;
+    const [user, setUser] = useState({});
 
-    const getLikes = async (id) => {
+    //Get user function to get user information
+    const getUser = async (userId) => {
         try {
             const token = await AsyncStorage.getItem('userToken');
-            const resp = await fetchGET('favourites/file', id, token);
-            console.log('response getLikes: ', resp);
-            return resp.length;
+            const json = await fetchGET('users', userId, token);
+            setUser(json);
         } catch (e) {
-            console.log('ListItem.js getLikes error: ', e);
+            console.log('getUser error', e);
         }
     };
 
-    const like = async (file) => {
-        try {
-            const fileId = file.file_id;
-            console.log('ListItem like file: ' + file + 'fileId: ' + fileId);
-            const token = await AsyncStorage.getItem('userToken');
-            const data = {
-                file_id: file.file_id,
-            };
-            const resp = await fetchPOST('favourites', data, token);
-            console.log('ListItem like', resp);
-            await getLikes(fileId);
-        } catch (e) {
-            console.log('ListItem like error: ', e);
-        }
-    };
-
-    const dislike = async (file) => {
-        try {
-            const token = await AsyncStorage.getItem('userToken');
-            const fileId = file.file_id;
-            const data = {
-                file_id: file.file_id,
-            };
-            const resp = await fetchDELETElike('favourites/file/' + fileId, data, token);
-            console.log('ListItem dislike response: ', resp);
-            await getLikes(fileId);
-        } catch (e) {
-            console.log('ListItem dislike error: ', e);
-        }
-    };
+    useEffect(() => {
+        getUser(props.singleMedia.user_id);
+    }, []);
 
     try {
         return (
@@ -77,46 +50,65 @@ const ListItem = (props) => {
                         <Thumbnail
                             source={{uri: mediaURL + props.singleMedia.thumbnails.w160}}/>
                     </Left>
-                    <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
+                    <View style={{flexDirection: 'column', alignItems: 'stretch', width: '85%'}}>
                         <H3 style={{marginLeft: 10, marginTop: 10}}>{props.singleMedia.title}</H3>
-                        <Text style={{marginLeft: 10}} note>{description}</Text>
+                        <Text style={{marginLeft: 10}}>{description}</Text>
 
-                        <View style={{marginLeft: 10, marginTop: 10, width: '100%', flexDirection: 'row', alignItems:'stretch'}}>
-                            <Button small transparent iconRight onPress={
+                        {props.mode === 'all' &&
+                        <View style={{
+                            marginLeft: 10,
+                            marginTop: 10,
+                            width: '90%',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                        }}>
+                            <Text note style={{flex: 1}}>By {user.username}</Text>
+                            <Button small style={{flex: 1}} transparent iconRight onPress={
                                 () => {
                                     props.navigation.push('Single', {file: props.singleMedia});
                                 }
                             }><Text>Show comments</Text>
                                 <Icon name='chatbubbles'/>
                             </Button>
-                            <Button small transparent iconRight onPress={
-                                () => {
-                                    like(props.singleMedia.file_id);
-                                }
-                            }><Text>Like</Text>
-                                <Icon name='thumbs-up'/>
-                            </Button>
-                        </View>
-                    </View>
-                    <Right>
+                        </View>}
 
-                        {props.mode === 'myfiles' &&
-                        <>
-                            <Button
-                                full
-                                warning
-                                onPress={
+                        {props.mode === 'market' &&
+                        <View style={{
+                            marginLeft: 10,
+                            marginTop: 10,
+                            width: '80%',
+                            flexDirection: 'row',
+                            justifyContent: 'flex-end',
+                        }}>
+                            <Text note style={{flex: 1}}>By {user.username}</Text>
+                            <Button small style={{flex: 1}} transparent iconRight onPress={
+                                () => {
+                                    props.navigation.push('Single', {file: props.singleMedia});
+                                }
+                            }><Text>Show comments</Text>
+                                <Icon name='chatbubbles'/>
+                            </Button>
+                        </View>}
+                        <Right>
+
+                            {props.mode === 'myfiles' &&
+                            <View style={{
+                                marginLeft: 10,
+                                marginTop: 10,
+                                width: '80%',
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end',
+                            }}>
+                                <Text note style={{flex: 1}}>By {user.username}</Text>
+                                <Button warning onPress={
                                     () => {
                                         props.navigation.push('Modify', {file: props.singleMedia});
                                     }
                                 }
-                            >
-                                <Icon name='create'/>
-                            </Button>
-                            <Button
-                                full
-                                danger
-                                onPress={async () => {
+                                ><Icon name='create'/>
+                                </Button>
+
+                                <Button danger onPress={async () => {
                                     const token = await AsyncStorage.getItem('userToken');
                                     const del = await fetchDELETE('media', props.singleMedia.file_id,
                                         token);
@@ -124,14 +116,12 @@ const ListItem = (props) => {
                                     if (del.message) {
                                         props.getMedia(props.mode);
                                     }
-                                }}
-                            >
-                                <Icon name='trash'/>
-                            </Button>
-                        </>
-                        }
-                    </Right>
+                                }}><Icon name='trash'/>
 
+                                </Button>
+                            </View>}
+                        </Right>
+                    </View>
                 </BaseListItem>
             </StyleProvider>
         );

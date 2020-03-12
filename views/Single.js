@@ -87,6 +87,7 @@ const Single = (props) => {
         try {
             const token = await AsyncStorage.getItem('userToken');
             const json = await fetchGET('users', file.user_id, token);
+            console.log('getUser json ',json);
             setUser(json);
         } catch (e) {
             console.log('getUser error', e);
