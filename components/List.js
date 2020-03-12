@@ -4,6 +4,7 @@ import {
   List as BaseList, Spinner, View,
 } from 'native-base';
 import ListItem from './ListItem';
+import CardListItem from './CardListItem';
 import {MediaContext} from '../contexts/MediaContext';
 import {getAllMedia, getUserMedia, getTaggedMedia} from '../hooks/APIHooks';
 import PropTypes from 'prop-types';
