@@ -72,26 +72,24 @@ const ListItem = (props) => {
     try {
         return (
             <StyleProvider style={getTheme()}>
-                <BaseListItem itemDivider thumbnail style={{height: 110, margin: 5, backgroundColor: 'white', padding: 10}}>
+                <BaseListItem thumbnail noIndent style={{borderBottomWidth: 1}}>
                     <Left>
                         <Thumbnail
-                            style={{width: 80, height: 80, borderRadius: 20}}
                             source={{uri: mediaURL + props.singleMedia.thumbnails.w160}}/>
                     </Left>
                     <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
-                        <Body >
-                            <H3 >{props.singleMedia.title}</H3>
-                            <Text note>{description}</Text>
-                        </Body>
-                        <View style={{flexDirection: 'row'}}>
-                            <Button iconRight transparent onPress={
+                        <H3 style={{marginLeft: 10, marginTop: 10}}>{props.singleMedia.title}</H3>
+                        <Text style={{marginLeft: 10}} note>{description}</Text>
+
+                        <View style={{marginLeft: 10, marginTop: 10, width: '100%', flexDirection: 'row', alignItems:'stretch'}}>
+                            <Button small transparent iconRight onPress={
                                 () => {
                                     props.navigation.push('Single', {file: props.singleMedia});
                                 }
                             }><Text>Show comments</Text>
                                 <Icon name='chatbubbles'/>
                             </Button>
-                            <Button iconRight transparent onPress={
+                            <Button small transparent iconRight onPress={
                                 () => {
                                     like(props.singleMedia.file_id);
                                 }
