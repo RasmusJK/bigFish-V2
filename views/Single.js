@@ -117,7 +117,7 @@ const Single = (props) => {
             console.log(error.message);
         }
     };
-    getLikes();
+
     //New like function
     const like = async () => {
         try {
