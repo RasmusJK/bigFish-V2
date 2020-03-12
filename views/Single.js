@@ -6,6 +6,7 @@ import {
     CardItem,
     Left,
     Body,
+    H1,
     H3,
     Icon,
     Text,
@@ -25,9 +26,7 @@ import {fetchGET, fetchPOST, fetchDELETElike} from '../hooks/APIHooks';
 import {AsyncStorage, KeyboardAvoidingView} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import useUploadForm from '../hooks/UploadHooks';
-import List from "../components/List";
 import CommentList from "../components/CommentList";
-import {getPlatformOrientationLockAsync} from 'expo/build/ScreenOrientation/ScreenOrientation';
 import useCommentForm from "../hooks/CommentHooks";
 import {validateField} from "../utils/validation";
 import {commentConstraints} from "../constants/validationConst";
@@ -185,15 +184,19 @@ const Single = (props) => {
         <StyleProvider style={getTheme()}>
             <Container>
                 <Content>
-
                     {toggleCardItem &&
                     <Card>
                         <CardItem>
+                            <H1>{file.title}</H1>
+                            <Text note>  @{user.username}</Text>
+                        </CardItem>
+                        <CardItem style={{paddingRight: 0, paddingLeft: 0, paddingBottom: 0, paddingTop: 0}}>
                             {file.media_type === 'image' ? (
                                     <AsyncImage
                                         style={{
                                             width: '100%',
-                                            height: deviceHeight / 2,
+                                            height: deviceHeight / 3,
+                                            margin: 0,
                                         }}
                                         spinnerColor='#777'
                                         source={{uri: mediaURL + file.filename}}
@@ -204,7 +207,7 @@ const Single = (props) => {
                                         useNativeControls
                                         style={{
                                             width: '100%',
-                                            height: deviceHeight / 2,
+                                            height: deviceHeight / 3,
                                         }}
                                         onError={(e) => {
                                             console.log('video error', e);
@@ -216,38 +219,43 @@ const Single = (props) => {
                                 )
                             }
                         </CardItem>
+
                         <CardItem>
-                            {!liked ? <Button success onPress={like}>
+                            {!liked ? <Button iconLeft transparent onPress={like}>
+                                    <Icon name='thumbs-up'/>
                                     <Text>Like</Text>
                                 </Button> :
-                                <Button danger onPress={dislike}>
+                                <Button iconLeft transparent onPress={dislike}>
+                                    <Icon name='thumbs-down'/>
                                     <Text>Dislike</Text>
                                 </Button>}
                             <Left>
-                                {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
+                                {likeCount ? <H3>{likeCount}</H3> : <H3>0</H3>}
                             </Left>
                             <Right>
-                                <Button full onPress={() => {
+                                <Button iconLeft full onPress={() => {
                                     setToggleCardItem(false);
                                 }}>
+                                    <Icon name='map'/>
                                     <Text>Map</Text>
                                 </Button>
                             </Right>
                         </CardItem>
+
                         <CardItem>
                             <Left>
-                                <Icon name='image'/>
-                                <Body>
-                                    <H3>{file.title}</H3>
-                                    <Text>{description}</Text>
-                                    <Text>By {user.username}</Text>
-                                </Body>
+                                <Text>{description}</Text>
                             </Left>
                         </CardItem>
                     </Card>
                     }
+
                     {!toggleCardItem &&
                     <Card>
+                        <CardItem>
+                            <H1>{file.title}</H1>
+                            <Text note>  @{user.username}</Text>
+                        </CardItem>
                         <CardItem>
                             <View>
                                 <MapView
@@ -272,40 +280,39 @@ const Single = (props) => {
                                 </MapView>
                             </View>
                         </CardItem>
+
                         <CardItem>
-                            {!liked ? <Button success onPress={like}>
+                            {!liked ? <Button iconLeft transparent onPress={like}>
+                                    <Icon name='thumbs-up'/>
                                     <Text>Like</Text>
                                 </Button> :
-                                <Button danger onPress={dislike}>
+                                <Button iconLeft transparent onPress={dislike}>
+                                    <Icon name='thumbs-down'/>
                                     <Text>Dislike</Text>
                                 </Button>}
                             <Left>
-                                {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
+                                {likeCount ? <H3>{likeCount}</H3> : <H3>0</H3>}
                             </Left>
                             <Right>
-                                <Button full onPress={() => {
+                                <Button iconLeft full onPress={() => {
                                     setToggleCardItem(true);
                                 }}>
-                                    <Text>Picture</Text>
+                                    <Icon name='image'/>
+                                    <Text>Media</Text>
                                 </Button>
                             </Right>
                         </CardItem>
 
                         <CardItem>
                             <Left>
-                                <Icon name='image'/>
-                                <Body>
-                                    <H3>{file.title}</H3>
-                                    <Text>{description}</Text>
-                                    <Text>By {user.username}</Text>
-                                </Body>
+                                <Text>{description}</Text>
                             </Left>
                         </CardItem>
                     </Card>
                     }
 
+                    {toggleCardItem &&
                     <Card>
-
                         <KeyboardAvoidingView behavior="position">
                             <Form style={{flexDirection: 'row'}}>
                                 <CardItem style={{flex: 3}}>
@@ -324,9 +331,8 @@ const Single = (props) => {
                                 </Right>
                             </Form>
                         </KeyboardAvoidingView>
-
                         <CommentList file={file.file_id}/>
-                    </Card>
+                    </Card>}
 
                 </Content>
             </Container>
