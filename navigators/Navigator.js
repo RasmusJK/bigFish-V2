@@ -10,9 +10,10 @@ import Single from '../views/Single';
 import AuthLoading from '../views/AuthLoading';
 import Login from '../views/Login';
 import Upload from '../views/Upload';
-import {Icon} from 'native-base';
+import {Icon, Image, Thumbnail, View} from 'native-base';
 import MyFiles from '../views/MyFiles';
 import Modify from '../views/Modify';
+import {colors, button, icon, text} from '../constants/stylingConstants';
 
 const TabNavigator = createBottomTabNavigator(
     {
@@ -42,6 +43,7 @@ const TabNavigator = createBottomTabNavigator(
                         <Icon
                             name={iconName}
                             size={25}
+                            style={{color: colors.colorContrast}}
                         />)
                         ;
                 } else {
@@ -49,14 +51,17 @@ const TabNavigator = createBottomTabNavigator(
                         <Icon
                             name={iconName}
                             size={25}
-                            style={{color: 'grey'}}
+                            style={{color: colors.colorSecondaryShade}}
                         />)
                 }
             },
         }),
         tabBarOptions: {
-            activeTintColor: '#000',
-            //inactiveTintColor: 'grey',
+            activeTintColor: colors.colorContrast,
+            style: {
+                backgroundColor: colors.colorSecondary,
+            },
+            inactiveTintColor: colors.colorSecondaryShade,
         },
     },
 );
@@ -78,6 +83,10 @@ const StackNavigator = createStackNavigator(
         Home: {
             screen: TabNavigator,
             navigationOptions: {
+                headerTintColor: colors.colorPrimary,
+                headerStyle: {
+                    backgroundColor: colors.colorSecondary,
+                },
                 headerMode: 'none', // this will hide the header
                 headerLeft: () => {
                 }, // this will hide back button
@@ -85,15 +94,39 @@ const StackNavigator = createStackNavigator(
         },
         Single: {
             screen: Single,
+            navigationOptions: {
+                headerTintColor: colors.colorPrimary,
+                headerStyle: {
+                    backgroundColor: colors.colorSecondary,
+                },
+            }
         },
         MyFiles: {
             screen: MyFiles,
+            navigationOptions: {
+                headerTintColor: colors.colorPrimary,
+                headerStyle: {
+                    backgroundColor: colors.colorSecondary,
+                }
+            }
         },
         Modify: {
             screen: Modify,
+            navigationOptions: {
+                headerTintColor: colors.colorPrimary,
+                headerStyle: {
+                    backgroundColor: colors.colorSecondary,
+                }
+            }
         },
         Logout: {
             screen: Login,
+            navigationOptions: {
+                headerTintColor: colors.colorPrimary,
+                headerStyle: {
+                    backgroundColor: colors.colorSecondary,
+                }
+            },
         },
     },
 );

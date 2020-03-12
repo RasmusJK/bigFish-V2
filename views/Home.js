@@ -42,13 +42,11 @@ const Home = (props) => {
         <StyleProvider style={getTheme()}>
             <Container>
                 <Header searchBar rounded>
-                    <Item>
-                        <Icon name="ios-search"/>
-                        <Input placeholder="Search" onChangeText={handleSearchValue} value={searchValue}/>
-
+                    <Item style={{flex: 4}}>
+                        <Input style={{width: '100%'}} placeholder="Search" onChangeText={handleSearchValue} value={searchValue}/>
                     </Item>
                     <Right>
-                        <Button icon onPress={processSearch}>
+                        <Button rounded icon onPress={processSearch}>
                           <Icon name='search'/>
                         </Button>
                     </Right>

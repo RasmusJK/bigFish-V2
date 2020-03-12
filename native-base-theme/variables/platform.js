@@ -120,7 +120,7 @@ export default {
     },
 
     // Card
-    cardDefaultBg: colors.colorPrimary,
+    cardDefaultBg: 'white',
     cardBorderColor: '#ccc',
     cardBorderRadius: 2,
     cardItemPadding: platform === PLATFORM.IOS ? 10 : 12,
@@ -144,7 +144,7 @@ export default {
     brandInfo: colors.colorSecondary,
     brandSuccess: colors.colorSecondary,
     brandDanger: colors.colorShade,
-    brandWarning: '#f0ad4e',
+    brandWarning: colors.colorContrast,
     brandDark: colors.colorBlack,
     brandLight: colors.colorPrimary,
 
@@ -205,7 +205,7 @@ export default {
     tabActiveBgColor: platform === PLATFORM.IOS ? '#cde1f9' : '#3F51B5',
 
     // Header
-    toolbarBtnColor: platform === PLATFORM.IOS ? colors.colorPrimary : colors.colorPrimary,
+    toolbarBtnColor: platform === PLATFORM.IOS ? colors.colorSecondary : colors.colorSecondary,
     toolbarDefaultBg: platform === PLATFORM.IOS ? colors.colorPrimary : colors.colorPrimary,
     toolbarHeight: platform === PLATFORM.IOS ? 64 : 56,
     toolbarSearchIconSize: platform === PLATFORM.IOS ? 20 : 23,

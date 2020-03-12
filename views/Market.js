@@ -44,14 +44,14 @@ const Market = (props) => {
         <StyleProvider style={getTheme()}>
             <Container>
                 <Header searchBar rounded>
-                    <Item>
-                        <Icon name="ios-search"/>
+                    <Item style={{flex: 4}}>
+
                         <Input placeholder="Search" onChangeText={handleSearchValue} value={searchValue}/>
 
                     </Item>
                     <Right>
-                        <Button transparent onPress={processSearch}>
-                            <Text>Search</Text>
+                        <Button rounded icon onPress={processSearch}>
+                            <Icon name='search'/>
                         </Button>
                     </Right>
                 </Header>
