@@ -15,22 +15,22 @@ import {
 } from 'native-base';
 import PropTypes from 'prop-types';
 import {mediaURL} from '../constants/urlConst';
-import {fetchDELETE, fetchGET} from '../hooks/APIHooks';
-import {AsyncStorage} from 'react-native';
+import {fetchDELETE, fetchDELETElike, fetchGET, fetchPOST} from '../hooks/APIHooks';
+import {AsyncStorage, TouchableOpacity} from 'react-native';
 
 
 const ListItem = (props) => {
     const allData = JSON.parse(props.singleMedia.description);
     console.log('props: ', props);
     const description = allData.description;
+
     try {
         return (
             <BaseListItem thumbnail>
                 <Left>
                     <Thumbnail
                         square
-                        source={{uri: mediaURL + props.singleMedia.thumbnails.w160}}
-                    />
+                        source={{uri: mediaURL + props.singleMedia.thumbnails.w160}}/>
                 </Left>
                 <Body>
                     <H3 numberOfLines={1}>{props.singleMedia.title}</H3>

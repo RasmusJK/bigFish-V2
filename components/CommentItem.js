@@ -12,13 +12,22 @@ import {
 import PropTypes from 'prop-types';
 import {AsyncStorage} from 'react-native';
 import {fetchGET} from "../hooks/APIHooks";
+import Moment from 'react-moment';
+import { format } from "date-fns";
 
 
 const Comment = (props) => {
-    try {
 
+    try {
         const [loading, setLoading] = useState(true);
         const [user, setUser] = useState({});
+
+        const date = props.singleComment.time_added;
+        const dates = date.split('T')[0];
+        const hours = date.split('T')[1].substring(0,8);
+        //console.log('Date: ', date.substring(0, 10));
+        //console.log('Date: ', date.split('T')[0]);
+        //console.log('Hours: ', date.split('T')[1].substring(0,8));
 
         const getUser = async (userId) => {
             try {
@@ -36,31 +45,17 @@ const Comment = (props) => {
             getUser(props.singleComment.user_id);
         });
 
-        /**
-         * Function made for formatting date/time, not working yet.
-         *
-         const date = (time_added) => {
-            const options = {day:'numeric',month:'numeric',year:'2-digit',hour:'numeric',minute:'numeric'};
-            console.log('date func: ',time_added.toLocaleDateString("en-US", options));
-            //return time_added.toLocaleDateString("en-US", options);
-        };
-
-         //console.log(props.singleComment.time_added);
-         //date(props.singleComment.time_added);
-         */
-
         return (
             <BaseListItem>
                 {loading ? (
                     <Spinner/>
                 ) : (
                     <Body>
-                        <Content style={{flexDirection: 'row'}}>
-                            <Text style={{flex: 2}}>{props.singleComment.time_added}</Text>
-                            <Text style={{flex: 1}}>{user.username}</Text>
-                        </Content>
+                        <Text note>{hours + ' // ' + dates}</Text>
+                        <Text note>{user.username}</Text>
                         <Text numberOfLines={3}>{props.singleComment.comment}</Text>
                     </Body>
+
                 )}
             </BaseListItem>
         );
