@@ -1,3 +1,4 @@
+
 import React,{useState} from 'react';
 import {
   Text,
@@ -54,7 +55,7 @@ const Market = (props) => {
 
       <View>
         {toggleSearch !== true &&
-        < List navigation={navigation} mode={'market'}/>
+          <List navigation={navigation} mode={'market'}/>
         }
       </View>
         {toggleSearch !== false &&

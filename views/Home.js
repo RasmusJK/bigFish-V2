@@ -59,11 +59,10 @@ const Home = (props) => {
         <BaseList
             dataArray={search}
             keyExtractor={(item, index) => index.toString()}
-            renderRow={
-              (item) => <ListItem
+            renderItem={({item}) => <ListItem
                   navigation={props.navigation}
                   singleMedia={item}
-
+                  mode={props.mode}
               />}
         />}
       </Container>
@@ -72,7 +71,7 @@ const Home = (props) => {
 };
 
 Home.propTypes = {
-  navigation: PropTypes.object,
+    navigation: PropTypes.object,
 };
 
 export default Home;

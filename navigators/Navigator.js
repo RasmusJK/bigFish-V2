@@ -16,83 +16,96 @@ import Modify from '../views/Modify';
 
 const TabNavigator = createBottomTabNavigator(
     {
-      Home,
-      Market,
-      Profile,
-      Upload,
+        Home,
+        Market,
+        Profile,
+        Upload,
     },
     {
-      defaultNavigationOptions: ({navigation}) => ({
-        tabBarIcon: () => {
-          const {routeName} = navigation.state;
-          let iconName;
-          if (routeName === 'Home') {
-            iconName = 'home';
-          }else if (routeName=== 'Market'){
-            iconName= 'cash';
-          } else if (routeName === 'Profile') {
-            iconName = 'person';
-          } else if (routeName === 'Upload') {
-            iconName = 'add';
-          }
+        defaultNavigationOptions: ({navigation}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+                const {routeName} = navigation.state;
+                let iconName;
+                if (routeName === 'Home') {
+                    iconName = focused ? 'home' : 'home';
+                } else if (routeName === 'Market') {
+                    iconName = focused ? 'cash' : 'cash';
+                } else if (routeName === 'Profile') {
+                    iconName = focused ? 'person' : 'person';
+                } else if (routeName === 'Upload') {
+                    iconName = focused ? 'add' : 'add';
+                }
 
-          // You can return any component that you like here!
-          return <Icon
-            name={iconName}
-            size={25}
-          />;
+                // You can return any component that you like here!
+                if (focused) {
+                    return (
+                        <Icon
+                            name={iconName}
+                            size={25}
+                        />)
+                        ;
+                } else {
+                    return (
+                        <Icon
+                            name={iconName}
+                            size={25}
+                            style={{color: 'grey'}}
+                        />)
+                }
+            },
+        }),
+        tabBarOptions: {
+            activeTintColor: '#000',
+            //inactiveTintColor: 'grey',
         },
-      }),
-      tabBarOptions: {
-        activeTintColor: '#000',
-      },
     },
 );
 
 TabNavigator.navigationOptions = ({navigation}) => {
-  const {routeName} = navigation.state.routes[navigation.state.index];
+    const {routeName} = navigation.state.routes[navigation.state.index];
 
-  // You can do whatever you like here to pick the title based on the route name
-  const headerTitle = routeName;
+    // You can do whatever you like here to pick the title based on the route name
+    const headerTitle = routeName;
 
-  return {
-    headerTitle,
-  };
+    return {
+        headerTitle,
+    };
 };
 
 const StackNavigator = createStackNavigator(
     // RouteConfigs
     {
-      Home: {
-        screen: TabNavigator,
-        navigationOptions: {
-          headerMode: 'none', // this will hide the header
-          headerLeft: ()=>{}, // this will hide back button
+        Home: {
+            screen: TabNavigator,
+            navigationOptions: {
+                headerMode: 'none', // this will hide the header
+                headerLeft: () => {
+                }, // this will hide back button
+            },
         },
-      },
-      Single: {
-        screen: Single,
-      },
-      MyFiles: {
-        screen: MyFiles,
-      },
-      Modify: {
-        screen: Modify,
-      },
-      Logout: {
-        screen: Login,
-      },
+        Single: {
+            screen: Single,
+        },
+        MyFiles: {
+            screen: MyFiles,
+        },
+        Modify: {
+            screen: Modify,
+        },
+        Logout: {
+            screen: Login,
+        },
     },
 );
 
 const Navigator = createSwitchNavigator(
     {
-      AuthLoading: AuthLoading,
-      App: StackNavigator,
-      Auth: Login,
+        AuthLoading: AuthLoading,
+        App: StackNavigator,
+        Auth: Login,
     },
     {
-      initialRouteName: 'AuthLoading',
+        initialRouteName: 'AuthLoading',
     },
 );
 
