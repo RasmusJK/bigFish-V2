@@ -39,8 +39,8 @@ const Single = (props) => {
   const [user, setUser] = useState({});
   const {navigation} = props;
   const file = navigation.state.params.file;
-  const [liked, setLiked] = useState();
-  const [likeCount, setLikeCount] = useState();
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const allData = JSON.parse(file.description);
   const description = allData.description;
   let longitude; let latitude; let teksti;
@@ -89,35 +89,7 @@ const Single = (props) => {
       console.log('getUser error', e);
     }
   };
-  //New like function
-  const like = async () => {
-    try {
-      const data = {
-        file_id: file.file_id,
-      };
-      const token = await AsyncStorage.getItem('userToken');
-      const response = await fetchPOST('favourites', data, token);
-      console.log('Like', response);
-      await getLikes();
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-  //Dislike function
-  const dislike = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      const data = {
-        id: file.file_id,
-      };
 
-      const response = await fetchDELETElike('favourites/file/' + file.file_id, data, token);
-      console.log('dislike', response);
-      await getLikes();
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   //Getting like count function
   const getLikes = async () => {
     try {
@@ -137,6 +109,37 @@ const Single = (props) => {
         }
       }
       setLikeCount(response.length);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  getLikes();
+  //New like function
+  const like = async () => {
+    try {
+      const data = {
+        file_id: file.file_id,
+      };
+      const token = await AsyncStorage.getItem('userToken');
+      const response = await fetchPOST('favourites', data, token);
+      console.log('Like', response);
+      await getLikes();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  //Dislike function
+  const dislike = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const data = {
+        id: file.file_id,
+      };
+
+      const response = await fetchDELETElike('favourites/file/' + file.file_id, data, token);
+      console.log('dislike', response);
+      await getLikes();
     } catch (error) {
       console.log(error.message);
     }
