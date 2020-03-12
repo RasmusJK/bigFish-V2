@@ -223,6 +223,13 @@ const Single = (props) => {
                         <Left>
                             {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
                         </Left>
+                        <Right>
+                            <Button full onPress={() => {
+                                setToggleCardItem(false);
+                            }}>
+                                <Text>Map</Text>
+                            </Button>
+                        </Right>
                     </CardItem>
                     <CardItem>
                         <Left>
@@ -233,13 +240,6 @@ const Single = (props) => {
                                 <Text>By {user.username}</Text>
                             </Body>
                         </Left>
-                        <Right>
-                            <Button full onPress={() => {
-                                setToggleCardItem(false);
-                            }}>
-                                <Text>Map</Text>
-                            </Button>
-                        </Right>
                     </CardItem>
                 </Card>
                 }
@@ -249,7 +249,7 @@ const Single = (props) => {
                         <View>
                             <MapView
                                 style={{
-                                    width: Dimensions.get('window').width,
+                                    width: Dimensions.get('window').width / 1.1,
                                     height: Dimensions.get('window').height / 2,
                                 }}
                                 initialRegion={{
@@ -279,6 +279,13 @@ const Single = (props) => {
                         <Left>
                             {likeCount ? <Text>Likes: {likeCount}</Text> : <Text>Likes: 0</Text>}
                         </Left>
+                        <Right>
+                        <Button full onPress={() => {
+                                setToggleCardItem(true);
+                            }}>
+                                <Text>Picture</Text>
+                            </Button>
+                        </Right>
                     </CardItem>
 
                     <CardItem>
@@ -290,13 +297,6 @@ const Single = (props) => {
                                 <Text>By {user.username}</Text>
                             </Body>
                         </Left>
-                        <Right>
-                            <Button full onPress={() => {
-                                setToggleCardItem(true);
-                            }}>
-                                <Text>Picture</Text>
-                            </Button>
-                        </Right>
                     </CardItem>
                 </Card>
                 }
