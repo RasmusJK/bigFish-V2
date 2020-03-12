@@ -51,7 +51,7 @@ const Comment = (props) => {
                     <Spinner/>
                 ) : (
                     <Body>
-                        <Text note>{hours + ' // ' + dates}</Text>
+                        <Text note>{hours + ' @ ' + dates}</Text>
                         <Text note>{user.username}</Text>
                         <Text numberOfLines={3}>{props.singleComment.comment}</Text>
                     </Body>
