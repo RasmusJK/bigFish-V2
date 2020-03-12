@@ -1,10 +1,5 @@
-import {useState} from 'react';
-import {AsyncStorage} from 'react-native';
+//Gets all posts with tag then checks if search matches with title.
 import {getTaggedMedia} from './APIHooks';
-
-//const token = await AsyncStorage.getItem('userToken');
-
-
 
 const searchGet = async(search,tag) => {
   const allMedia = await getTaggedMedia(tag);
